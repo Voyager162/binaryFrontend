@@ -98,3 +98,8 @@ Welcome to the Binary Site! By Justin, Lars, Manahil, Rutvik, Shaurya, Shriya, V
         <td><a href="{{site.baseurl}}/navigation/binary-calculator" class="button">Binary Calculator</a></td>
     </table>
 </body>
+
+
+
+
+test
