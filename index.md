@@ -1,6 +1,6 @@
 ---
-layout: post
-title: Login Page
+layout: page
+title: Binary Page
 search_exclude: true
 description: Login and explore our social media hub to learn about Big Idead 2 about binary
 hide: true
@@ -78,8 +78,6 @@ hide: true
         }
     </style>
 </head>
-
-Welcome to the Binary Site! By Justin, Lars, Manahil, Rutvik, Shaurya, Shriya, Vincent, and Weston
 
 <body>
     <table>
