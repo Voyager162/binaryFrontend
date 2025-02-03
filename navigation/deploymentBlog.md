@@ -1,6 +1,6 @@
 ---
 layout: page
-title: deployment Blog
+title: Deployment Blog
 permalink: /deployment/blog/
 ---
 ## Step 1: change ports to 8051
