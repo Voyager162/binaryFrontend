@@ -23,9 +23,9 @@ permalink: /binaryOverflow
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                background-color: lightblue;
+                background-color: lightskyblue;
                 padding: 15px 20px;
-                color: white;
+                color: lightslategrey;
             }
          .navbar .logo {
                 font-size: 22px;
@@ -42,7 +42,7 @@ permalink: /binaryOverflow
                 transition: 0.3s;
             }
             .navbar .login-btn {
-                background-color: #ff9800;
+                background-color: lightslategrey;
                 padding: 8px 15px;
                 border-radius: 5px;
                 color: white;
@@ -50,7 +50,7 @@ permalink: /binaryOverflow
                 transition: 0.3s;
             }
             .navbar .login-btn:hover {
-                background-color: #e68900;
+                background-color: silver;
             }
             /* Layout */
            .container {
@@ -75,10 +75,9 @@ permalink: /binaryOverflow
                 flex: 1; /* Keeps sidebar minimal */
                 min-width: 250px; /* Prevents sidebar from being too large */
                 max-width: 300px; /* Ensures it stays small */
-                background: white;
+                background: black;
                 padding: 15px;
                 border-radius: 5px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 margin-left: -1200px; /* Adds spacing between main content and sidebar */
                 margin-top: 75px;
             }
@@ -87,7 +86,7 @@ permalink: /binaryOverflow
                 display: flex;
                 align-items: center;
                 padding: 15px;
-                background: white;
+                background: lightskyblue;
                 border-radius: 5px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 margin-bottom: 20px;
@@ -107,9 +106,6 @@ permalink: /binaryOverflow
                 border-radius: 5px;
                 cursor: pointer;
                 transition: 0.3s;
-            }
-            .post-box button:hover {
-                background: #e68900;
             }
             /* Individual Post */
             .post {
