@@ -13,6 +13,7 @@ permalink: /binaryOverflow
      <style>
             /* General Styling */
         body {
+                background: linear-gradient(150deg, #0e3348, #1b2b34, #1b3b4d, #124c6c);
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
@@ -65,7 +66,7 @@ permalink: /binaryOverflow
             /* Main Content */
             .main-content {
                 flex: 3; /* Allows main content to expand */
-                background: white;
+                background: lightcyan;
                 padding: 20px;
                 border-radius: 5px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
