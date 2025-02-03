@@ -4,7 +4,6 @@ permalink: /binaryOverflow
 ---
 
 
-<!DOCTYPE html>
  <html lang="en">
     
 <head>
@@ -24,7 +23,7 @@ permalink: /binaryOverflow
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                background-color: #2d2d2d;
+                background-color: lightblue;
                 padding: 15px 20px;
                 color: white;
             }
@@ -42,9 +41,6 @@ permalink: /binaryOverflow
                 font-size: 16px;
                 transition: 0.3s;
             }
-            .navbar .nav-links a:hover {
-                color: #ff9800;
-            }
             .navbar .login-btn {
                 background-color: #ff9800;
                 padding: 8px 15px;
@@ -57,25 +53,34 @@ permalink: /binaryOverflow
                 background-color: #e68900;
             }
             /* Layout */
-            .container {
+           .container {
                 display: flex;
                 justify-content: center;
                 margin-top: 20px;
-            }
+                width: 100%;
+                max-width: 1200px;
+                margin-left: auto;
+                margin-right: auto;
+}
+            /* Main Content */
             .main-content {
-                width: 60%;
+                flex: 3; /* Allows main content to expand */
                 background: white;
                 padding: 20px;
                 border-radius: 5px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
+            /* Sidebar */
             .sidebar {
-                width: 20%;
-                margin-left: 20px;
+                flex: 1; /* Keeps sidebar minimal */
+                min-width: 250px; /* Prevents sidebar from being too large */
+                max-width: 300px; /* Ensures it stays small */
                 background: white;
                 padding: 15px;
                 border-radius: 5px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                margin-left: -1200px; /* Adds spacing between main content and sidebar */
+                margin-top: 75px;
             }
             /* Post Box */
             .post-box {
@@ -161,19 +166,18 @@ permalink: /binaryOverflow
                 color: #ff9800;
             }
 </style>
-
 </head>
-    <body>
-        <!-- Navbar -->
-        <div class="navbar">
-            <div class="logo">Binary Overflow</div>
-            <div class="nav-links">
-                <a href="#">Home</a>
-                <a href="#">Trending</a>
-                <a href="#">New Posts</a>
-            </div>
-            <a href="#" class="login-btn">Login</a>
-        </div>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+         <div class="logo">Binary Overflow</div>
+         <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Trending</a>
+            <a href="#">New Posts</a>
+         </div>
+        <a href="#" class="login-btn">Login</a>
+    </div>
         <!-- Layout -->
         <div class="container">
             <!-- Main Content -->
@@ -187,33 +191,33 @@ permalink: /binaryOverflow
                 <div class="post">
                     <div class="vote-section">
                         <button class="vote-btn">⬆</button>
-                        <div>12</div>
+                        <div>-877</div>
                         <button class="vote-btn">⬇</button>
                     </div>
                     <div class="post-content">
-                        <div class="post-title">How do I convert binary to decimal in Python?</div>
-                        <div class="post-meta">Posted by <strong>user123</strong> | 2 hours ago</div>
+                        <div class="post-title">code code code or smth idk</div>
+                        <div class="post-meta">Posted by <strong>Mortie</strong> | 2 hours ago</div>
                     </div>
                 </div>
                 <div class="post">
                     <div class="vote-section">
                         <button class="vote-btn">⬆</button>
-                        <div>8</div>
+                        <div>-4</div>
                         <button class="vote-btn">⬇</button>
                     </div>
                     <div class="post-content">
-                        <div class="post-title">What is the best way to optimize a sorting algorithm?</div>
-                        <div class="post-meta">Posted by <strong>devguru</strong> | 4 hours ago</div>
+                        <div class="post-title">join my film class trust its fire</div>
+                        <div class="post-meta">Posted by <strong>Brownie</strong> | 4 hours ago</div>
                     </div>
                 </div>
             </div>
             <!-- Sidebar -->
             <div class="sidebar">
-                <h3>Trending Topics</h3>
+                <h3>Binary Topics</h3>
                 <ul>
-                    <li><a href="#">Machine Learning Basics</a></li>
-                    <li><a href="#">Binary Trees in C++</a></li>
-                    <li><a href="#">Best IDEs for Web Development</a></li>
+                    <li><a href="#">I love binary</a></li>
+                    <li><a href="#">somthing about binary</a></li>
+                    <li><a href="#">i have no clue whatsw supposed to be here</a></li>
                 </ul>
             </div>
         </div>
