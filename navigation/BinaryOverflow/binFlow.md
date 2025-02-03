@@ -220,3 +220,54 @@ permalink: /binaryOverflow
         </div>
     </body>
  </html>
+
+ <script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Select elements
+    const postInput = document.querySelector(".post-box input"); // Input field
+    const postButton = document.querySelector(".post-box button"); // Post button
+    const postContainer = document.querySelector(".main-content"); // Where posts appear
+
+    // Function to create a new post
+    function createPost(content) {
+        if (!content.trim()) {
+            alert("Post cannot be empty!"); // Prevent empty posts
+            return;
+        }
+
+        // Create post element
+        const postElement = document.createElement("div");
+        postElement.classList.add("post");
+
+        postElement.innerHTML = `
+            <div class="vote-section">
+                <button class="vote-btn">⬆</button>
+                <div>0</div>
+                <button class="vote-btn">⬇</button>
+            </div>
+            <div class="post-content">
+                <div class="post-title">${content}</div>
+                <div class="post-meta">Posted just now</div>
+            </div>
+        `;
+
+        // Insert new post at the top
+        postContainer.insertBefore(postElement, postContainer.children[1]); 
+
+        // Clear input field
+        postInput.value = "";
+    }
+
+    // Event listener for Post button
+    postButton.addEventListener("click", function () {
+        createPost(postInput.value);
+    });
+
+    // Allow posting by pressing "Enter"
+    postInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            createPost(postInput.value);
+        }
+    });
+});
+</script> 
