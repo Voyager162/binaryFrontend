@@ -3,7 +3,8 @@ layout: page
 title: Deployment Blog
 permalink: /deployment/blog/
 ---
-## Step 1: change ports to 8051
+# Deployment
+## Changing ports to 8501
 ### Main.py
 ```python
 if __name__ == "__main__":
@@ -31,7 +32,11 @@ proxy_pass http://localhost:8501;
 ```
 This will tell the nginx server to pass requests to the port 8501 on the host machine
 
-## Collage Board Video Notes
+# Tech Talk video Notes
+
+
+
+# Collage Board Video Notes
 
 ### VIDEO 4.1.1-2: 
 
@@ -59,7 +64,3 @@ This will tell the nginx server to pass requests to the port 8501 on the host ma
 - Sequential processing: Tasks are run one after the other
 - Parrallel Processing: Tasks are run at the same time
 - Distributed Processing: Tasks are run on different computers
-
-
-
-
