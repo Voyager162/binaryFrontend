@@ -33,7 +33,7 @@ This will tell the nginx server to pass requests to the port 8501 on the host ma
 
 ## Collage Board Video Notes
 
-VIDEO 4.1: 
+### VIDEO 4.1: 
 
 - Around 1975 we had big computer, discovered that working with big computers in one area was bad so the internet was thought about
 - Computers can send and receive data; they are an object use for
@@ -45,7 +45,7 @@ VIDEO 4.1:
 - Bandwidth: The maximum amount of data that can be sent (bits per second)
 - We use packets because there is a maximum amount of data (Bandwidth) that can be sent
 
-VIDEO 4.2 
+### VIDEO 4.2 
 
 -The internet has been engineered to be fault tolerant, with abstractions for routing and transmitting data
 - Redundancy is the inclusion of extra components that can be used to mitigate failure of a system if other components fail
@@ -54,7 +54,11 @@ VIDEO 4.2
 - More devices and more network connections makes network stronger
 - A "fault tolerant" network means that it is designed to continue operating without interruption even if one or more of its components fail, by utilizing redundant systems and pathways to automatically reroute traffic and maintain connectivity in case of a failure; essentially, it can withstand component malfunctions without experiencing downtime.
 
-
+### VIDEO 4.3
+- A computer needs to handle many tasks
+- Sequential processing: Tasks are run one after the other
+- Parrallel Processing: Tasks are run at the same time
+- Distributed Processing: Tasks are run on different computers
 
 
 
