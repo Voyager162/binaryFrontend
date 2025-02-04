@@ -53,6 +53,20 @@ VIDEO 4.2
 - Fault tolerance makes a good network since there are multiple paths data can take to get from one device to any other device on the network
 - More devices and more network connections makes network stronger
 - A "fault tolerant" network means that it is designed to continue operating without interruption even if one or more of its components fail, by utilizing redundant systems and pathways to automatically reroute traffic and maintain connectivity in case of a failure; essentially, it can withstand component malfunctions without experiencing downtime.
+- Computer needs to handle many tasks as it operates such as system tasks and user tasks
+- System Tasks: the operating system has dozens of tasks like scheduling what it will be doing next, managing hardware, working with the network etc.
+- User tasks: executing programs that the user has selected, such as running MS excel, MS Word, or computing games
+Tasks need to be scheduled by the operating system. Balance tasks such as all CPUs are being used evenly and fully
+Sequential Computing: Tasks are done one after another. It is a computational model in which operations are performing in order one at a time
+
+
+
+
+
+
+
+
+
 
 
 
