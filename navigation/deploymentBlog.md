@@ -4,7 +4,7 @@ title: Deployment Blog
 permalink: /deployment/blog/
 ---
 # Deployment
-## Changing ports to 8501
+## Step one: change ports to 8501
 ### Main.py
 ```python
 if __name__ == "__main__":
@@ -31,9 +31,6 @@ This will tell the docker container to map the port 8501 to the port 8501 on the
 proxy_pass http://localhost:8501;
 ```
 This will tell the nginx server to pass requests to the port 8501 on the host machine
-
-# Tech Talk video Notes
-
 
 
 # Collage Board Video Notes
