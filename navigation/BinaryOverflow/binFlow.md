@@ -93,6 +93,12 @@ permalink: /binaryOverflow
                 margin-bottom: 20px;
             }
             .post-box input {
+                width: 25%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+            .post-box textarea {
                 width: 100%;
                 padding: 10px;
                 border: 1px solid #ddd;
@@ -181,8 +187,9 @@ permalink: /binaryOverflow
             <div class="main-content">
                 <!-- Post Input Box -->
                 <div class="post-box">
-                    <input type="text" placeholder="What's on your mind?">
-                    <button>Post</button>
+                    <input type="text" placeholder="Post title..." id="post-title">
+                    <textarea placeholder="Write your post..." id="post-content"></textarea>
+                    <button id="post-button">Post</button>
                 </div>
                 <!-- Example Posts -->
                 <div class="post">
@@ -224,18 +231,79 @@ permalink: /binaryOverflow
  <script>
 document.addEventListener("DOMContentLoaded", function () {
     // Select elements
-    const postInput = document.querySelector(".post-box input"); // Input field
-    const postButton = document.querySelector(".post-box button"); // Post button
+    const postTitleInput = document.querySelector("#post-title"); // Title input field
+    const postContentInput = document.querySelector("#post-content"); // Content input field
+   const postButton = document.getElementById("post-button"); // Post button
     const postContainer = document.querySelector(".main-content"); // Where posts appear
 
+    // Fetch posts from backend and display them
+    async function fetchPosts() {
+        try {
+            const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch posts");
+            }
+
+            const data = await response.json();
+            console.log("Fetched posts:", data);
+
+            data.reverse().forEach((post) => {
+                addPostToUI(post.title, post.content, post.author);
+            });
+
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+        }
+    }
+
     // Function to create a new post
-    function createPost(content) {
-        if (!content.trim()) {
-            alert("Post cannot be empty!"); // Prevent empty posts
+    async function createPost() {
+        const title = postTitleInput.value.trim();
+        const content = postContentInput.value.trim();
+        const author = "Anonymous"; // Replace with real user data later
+
+        if (!title || !content) {
+            alert("Title and content cannot be empty!");
             return;
         }
 
-        // Create post element
+        const postData = {
+            title,
+            content,
+            author,
+            state: "parent" // Add required field
+        };
+
+        try {
+            const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(postData),
+            });
+
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                console.error("Failed to create post:", errorMessage);
+                alert("Error: " + errorMessage);
+                return;
+            }
+
+            const newPost = await response.json();
+            addPostToUI(newPost.title, newPost.content, newPost.author);
+            postTitleInput.value = "";
+            postContentInput.value = "";
+
+        } catch (error) {
+            console.error("Error posting:", error);
+        }
+    }
+
+    // Function to add a post to the UI
+    function addPostToUI(title, content, author) {
         const postElement = document.createElement("div");
         postElement.classList.add("post");
 
@@ -246,28 +314,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 <button class="vote-btn">⬇</button>
             </div>
             <div class="post-content">
-                <div class="post-title">${content}</div>
-                <div class="post-meta">Posted just now</div>
+                <div class="post-title">${title}</div>
+                <div class="post-meta">Posted by <strong>${author}</strong></div>
+                <p>${content}</p>
             </div>
         `;
 
-        // Insert new post at the top
+        // Insert at the top instead of clearing everything
         postContainer.insertBefore(postElement, postContainer.children[1]); 
-
-        // Clear input field
-        postInput.value = "";
     }
 
     // Event listener for Post button
-    postButton.addEventListener("click", function () {
-        createPost(postInput.value);
-    });
+    postButton.addEventListener("click", createPost);
 
-    // Allow posting by pressing "Enter"
-    postInput.addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
-            createPost(postInput.value);
-        }
-    });
+    // Fetch posts when page loads
+    fetchPosts();
+});
+
+// test test test set set set 
+postButton.addEventListener("click", function() {
+    console.log("Post button clicked!"); // Debugging
+    createPost();
 });
 </script>
