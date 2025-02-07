@@ -93,6 +93,7 @@ permalink: /logicgame
 </body>
 
 
+
 <table>
     <tr>
         <th><label for="name">Name</label></th>
