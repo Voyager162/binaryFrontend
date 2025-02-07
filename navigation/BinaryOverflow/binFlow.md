@@ -190,7 +190,7 @@ permalink: /binaryOverflow
                 <div class="post-box">
                     <input type="text" placeholder="Post title..." id="post-title">
                     <textarea placeholder="Write your post..." id="post-content"></textarea>
-                    <button id="post-button">Post</button>
+                    <button id="post-button" onclick="createPost()">Post</button>
                 </div>
                 <!-- Example Posts -->
                 <div class="post">
@@ -263,23 +263,36 @@ permalink: /binaryOverflow
             return;
         }
 
+        const postDtata = {
+            title: title,
+            content: content,
+        }
+
         try {
             const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ title, content, author: "Anonymous" })
+                body: JSON.stringify(postData)
             });
-
-            if (!response.ok) throw new Error(await response.text());
-            const newPost = await response.json();
-            addPostToUI(newPost);
+            .then(response => {
+                if (response.ok) {
+                    alert("Saved Successfully");
+                    return response.json();
+                }
+                throw new Error("Network response failed")
+            })
+            .then(data => {
+                document.getElementById('title').value = '';
+                document.getElementById('content').value = '';
+                fetchPosts();
+            })
             
             postTitleInput.value = "";
             postContentInput.value = "";
 
-        } catch (error) {
+        } catch (error => {
             console.error("Error posting:", error);
-        }
+        })
     }
 
     function addPostToUI(post) {
