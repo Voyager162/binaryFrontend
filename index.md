@@ -104,7 +104,9 @@ layout: page
         <a href="{{site.baseurl}}/binary_history" class="button">The History of Binary...</a>
         <a href="{{site.baseurl}}/comments" class="button">Comments and Feedback</a>
         <a href="{{site.baseurl}}/leaderboard/" class="button">Leaderboard</a>
-        <a href="{{site.baseurl}}/quiz" class="button">Binary Quiz</a>
+        <a href="{{site.baseurl}}/quiz" class="button">
+            <img src="{{site.baseurl}}/images/binaryquiz/binaryquiz.png" alt="Binary Quiz">
+        </a>
         <a href="{{site.baseurl}}/navigation/binary-calculator" class="button">Binary Calculator</a>
     </div>
 </body>
