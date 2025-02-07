@@ -8,9 +8,8 @@ permalink: /leaderboard/
 <html lang="en">
 <head>
         <div class="button-container">
-            <p>Binary Game Leaderboard</p>
                 <a href="{{site.baseurl}}/BinaryLearningGameLeaderboard" class="button">
-                    <img src="{{site.baseurl}}/images/binaryLearningGame/binaryGameLogo.jpg" alt="Binary Game Leaderboard">
+                    <img src="{{site.baseurl}}images/binaryLearningGame/binaryGameLogo.png" alt="Binary Game Leaderboard">
             </a>
         <div class="cta">
             <a href="https://www.youtube.com/watch?v=nYrEL9ecAWA">
