@@ -93,8 +93,14 @@ Welcome to the Binary Site! By Justin, Lars, Manahil, Rutvik, Shaurya, Shriya, V
 <body>
     <table>
         <td><a href="{{site.baseurl}}/comments" class="button">Comments and Feedback</a></td>
-        <td><a href="{{site.baseurl}}/leaderboard/" class="button">Leaderboard</a></td>
+        <td><a href="{{site.baseurl}}/PlayerAnalytics/" class="button">Player Analytics</a></td>
         <td><a href="{{site.baseurl}}/quiz" class="button">Binary Quiz</a></td>
         <td><a href="{{site.baseurl}}/navigation/binary-calculator" class="button">Binary Calculator</a></td>
+    </table>
+</body>
+
+<body>
+    <table>
+        <td><a href="{{site.baseurl}}/leaderboard" class="button">Leaderboard</a></td>
     </table>
 </body>
