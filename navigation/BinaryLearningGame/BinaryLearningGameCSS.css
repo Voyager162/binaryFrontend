@@ -17,17 +17,6 @@
     --shadow: rgba(0, 0, 0, 0.15);
 }
 
-body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    background-color: var(--background);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    color: var(--text-dark);
-    min-height: 100vh;
-}
-
 .game-container {
     text-align: center;
     width: 100%;
@@ -414,4 +403,15 @@ header {
 .popup table td .button:active {
     background-color: #003300 !important; /* Even darker green */
     transform: scale(0.95); /* Shrink slightly */
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #003366, darkred); /* 180deg for top-to-bottom gradient */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    color: var(--text-dark);
+    min-height: 100vh;
 }
