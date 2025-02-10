@@ -1,9 +1,5 @@
 ---
-layout: post
-title: Login Page
-search_exclude: true
-description: Login and explore our social media hub to learn about Big Idead 2 about binary
-hide: true
+layout: page
 ---
 
 <head>
@@ -45,19 +41,21 @@ hide: true
             font-weight: bold;
             font-family: Arial, sans-serif;
             display: inline-block;
-            padding: 15px 20px;
+            padding: 0; /* Remove padding */
             border-radius: 20px;
-            transition: transform 0.2s ease, background-color 0.2s ease;
+            transition: transform 0.2s ease;
             text-align: center;
+            width: fit-content; /* Fit the button to the content */
+            height: fit-content; /* Fit the button to the content */
         }
         .button:hover {
             transform: scale(1.05); /* Slightly larger on hover */
-            background-color: #FFBF00; /* Darker green on hover */
-            color: black !important;
+            background-color: transparent; /* No background color change */
+            color: white !important;
         }
         .button:active {
             transform: scale(0.95); /* Shrinks a bit on click */
-            background-color: #BA8E23; /* Even darker green on click */
+            background-color: transparent; /* No background color change */
             color: white !important;
         }
         /* Images will adjust in size up to a maximum width and height */
@@ -76,27 +74,39 @@ hide: true
             max-height: 150px;
             object-fit: cover;
         }
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns */
+            gap: 20px;
+            padding: 20px;
+            justify-items: center; /* Center items horizontally */
+        }
+        .button img {
+            max-width: 60%; /* Even smaller image */
+            height: auto;
+            border-radius: 20px;
+            display: inline-block; /* Ensure the image is a block element */
+        }
+        h1 {
+            text-align: center; /* Center the title */
+        }
     </style>
 </head>
 
-Welcome to the Binary Site! By Justin, Lars, Manahil, Rutvik, Shaurya, Shriya, Vincent, and Weston
-
 <body>
-    <table>
-            <td><a href="{{site.baseurl}}/binaryGame" class="button">Binary Game</a></td>
-            <td><a href="{{site.baseurl}}/logicgame" class="button">Logic Gates Games</a></td>
-            <td><a href="{{site.baseurl}}/converter/" class="button">Binary Converter</a></td>
-            <td><a href="{{site.baseurl}}/binary_history" class="button">The History of Binary...</a></td>
-    </table>
-</body>
-
-<body>
-    <table>
-        <td><a href="{{site.baseurl}}/comments" class="button">Comments and Feedback</a></td>
-        <td><a href="{{site.baseurl}}/PlayerAnalytics/" class="button">Player Analytics</a></td>
-        <td><a href="{{site.baseurl}}/quiz" class="button">Binary Quiz</a></td>
-        <td><a href="{{site.baseurl}}/navigation/binary-calculator" class="button">Binary Calculator</a></td>
-    </table>
+    <h1>Binary Home Page</h1>
+    <div class="button-container">
+        <a href="{{site.baseurl}}/binaryGame" class="button">
+            <img src="{{site.baseurl}}/images/binaryLearningGame/binaryGameLogo.jpg" alt="Binary Game">
+        </a>
+        <a href="{{site.baseurl}}/logicgame" class="button">Logic Gates Games</a>
+        <a href="{{site.baseurl}}/converter/" class="button">Binary Converter</a>
+        <a href="{{site.baseurl}}/binary_history" class="button">The History of Binary...</a>
+        <a href="{{site.baseurl}}/comments" class="button">Comments and Feedback</a>
+        <a href="{{site.baseurl}}/leaderboard/" class="button">Leaderboard</a>
+        <a href="{{site.baseurl}}/quiz" class="button">Binary Quiz</a>
+        <a href="{{site.baseurl}}/navigation/binary-calculator" class="button">Binary Calculator</a>
+    </div>
 </body>
 
 <body>
