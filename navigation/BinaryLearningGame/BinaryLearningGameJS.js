@@ -254,12 +254,21 @@ function gameOver() {
 function updateHearts() {
   for (let i = 1; i <= 3; i++) {
     const heart = document.getElementById(`heart${i}`);
+    let onDeployedPage = true; 
+    if (location.hostname === "localhost") {
+      onDeployedPage = false;
+    }
+    else if (location.hostname == "127.0.0.1") {
+      onDeployedPage = false;
+    }
     if (i <= lives) {
-      heart.src = "../images/heart.png";
+      heart.src = "../images/binaryLearningGame/heart.png";
+      if (onDeployedPage) heart.src = "../binaryFrontend/images/binaryLearningGame/heart.png"
       heart.style.visibility = "visible";
       heart.classList.remove("jiggle");
     } else {
-      heart.src = "../images/emptyHeart.png";
+      heart.src = "../images/binaryLearningGame/emptyHeart.png";
+      if (onDeployedPage) heart.src = "../binaryFrontend/images/binaryLearningGame/emptyHeart.png"
       heart.style.visibility = "visible";
       heart.classList.add("jiggle");
     }
