@@ -108,3 +108,9 @@ layout: page
         <a href="{{site.baseurl}}/navigation/binary-calculator" class="button">Binary Calculator</a>
     </div>
 </body>
+
+<body>
+    <table>
+        <td><a href="{{site.baseurl}}/leaderboard" class="button">Leaderboard</a></td>
+    </table>
+</body>
