@@ -12,14 +12,14 @@ permalink: /leaderboard/
 </div>
 
 <div class="button-container">
-
-<a href="{{site.baseurl}}/quiz" class="button">
-    <img src="{{site.baseurl}}/images/binaryquiz/binaryquiz.png" alt="Binary Quiz Leaderboard" width="30%">
-</a>
+    <a href="{{site.baseurl}}/BinaryQuizLeaderboard" class="button">
+        <img src="{{site.baseurl}}/images/binaryquiz/binaryquiz.png" alt="Binary Quiz Leaderboard" width="30%">
+    </a>
+</div>
 
 <div class="button-container">
-
-<a href="{{site.baseurl}}/logicgame" class="button">
-    <img src="{{site.baseurl}}/images/logicGates/logicGates.png" alt="Binary Quiz Leaderboard" width="30%">
-</a>
+    <a href="{{site.baseurl}}/LogicGatesLeaderboard" class="button">
+        <img src="{{site.baseurl}}/images/logicGates/logicGates.png" alt="Binary Quiz Leaderboard" width="30%">
+    </a>
 </div>
+

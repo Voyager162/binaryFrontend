@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Leaderboard
+title: Binary Learning Game Leaderboard
 permalink: /BinaryLearningGameLeaderboard/
 ---
 
