@@ -234,6 +234,7 @@ permalink: /binaryOverflow
  </html>
 
  <script>
+    import { pythonURI } from '../assets/js/api/config.js';
         document.addEventListener("DOMContentLoaded", function () {
             console.log(" JavaScript Loaded!");
 
@@ -255,14 +256,11 @@ permalink: /binaryOverflow
             fetchPosts();
         });
 
-        /**
-         * Fetch Posts from API
-         */
-        async function fetchPosts() {
-            try {
-                const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/home");
-                if (!response.ok) throw new Error(" Failed to fetch posts");
-                const data = await response.json();
+    async function fetchPosts() {
+        try {
+            const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/");
+            if (!response.ok) throw new Error("Failed to fetch posts");
+            const data = await response.json();
 
                 const postsContainer = document.getElementById("posts-container");
                 postsContainer.innerHTML = "";
@@ -290,37 +288,37 @@ permalink: /binaryOverflow
                 return;
             }
 
-            const postData = { title, content };
-
-            console.log(" Sending request with:", postData);
-
-            try {
-                const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/post", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(postData)
-                });
-
-                if (!response.ok) {
-                    const errorMessage = await response.text();
-                    console.error("Failed to create post:", errorMessage);
-                    alert("Error creating post: " + errorMessage);
-                    return;
-                }
-
-                const newPost = await response.json();
-                console.log(" Post created successfully!", newPost);
-                addPostToUI(newPost);
-
-                postTitleInput.value = "";
-                postContentInput.value = "";
-                fetchPosts();
-
-            } catch (error) {
-                console.error(" Error posting:", error);
-                alert("⚠️ Failed to create post.");
-            }
+        const postData = {
+            title: title,
+            content: content,
         }
+
+        try {
+            const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(postData)
+            });
+            .then(response => {
+                if (response.ok) {
+                    alert("Saved Successfully");
+                    return response.json();
+                }
+                throw new Error("Network response failed")
+            })
+            .then(data => {
+                document.getElementById('title').value = '';
+                document.getElementById('content').value = '';
+                fetchPosts();
+            })
+            
+            postTitleInput.value = "";
+            postContentInput.value = "";
+
+        } catch (error => {
+            console.error("Error posting:", error);
+        })
+    }
 
         /**
          * Add a Post to the UI
