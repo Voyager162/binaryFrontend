@@ -169,90 +169,8 @@ permalink: /binaryOverflow
                 color: #ff9800;
             }
 </style>
-
-<script>
-    import { pythonURI, javaURI, fetchOptions, login } from '../../assets/js/api/config.js';
-
-    console.log("JavaScript Loaded!");
-
-    document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOMContentLoaded event triggered!");
-}   );
-            const postButton = document.getElementById("post-button");
-            const postTitleInput = document.getElementById("post-title");
-            const postContentInput = document.getElementById("post-content");
-            const postsContainer = document.getElementById("posts-container");
-
-            if (!postButton) {
-                console.error("Post button not found!");
-                return;
-            }
-
-            postButton.addEventListener("click", function () {
-                console.log("Post button clicked!"); 
-                createPost();
-            });
-
-            fetchPosts();
-
-            async function fetchPosts() {
-                try {
-                    const response = await fetch(`${pythonURI}/api/binaryOverflow/`);
-                    if (!response.ok) throw new Error("Failed to fetch posts");
-                    const data = await response.json();
-
-                    postsContainer.innerHTML = "";
-                    data.forEach(post => {
-                        addPostToUI(post);
-                    });
-                } catch (error) {
-                    console.error("Error fetching posts:", error);
-                }
-            }
-
-            async function createPost() {
-                const title = postTitleInput.value.trim();
-                const content = postContentInput.value.trim();
-                if (!title || !content) {
-                    alert("Title and content cannot be empty!");
-                    return;
-                }
-
-                try {
-                    const response = await fetch(`${pythonURI}/api/binaryOverflow/`, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ title, content, author: "Anonymous" })
-                    });
-
-                    if (!response.ok) throw new Error(await response.text());
-                    const newPost = await response.json();
-                    addPostToUI(newPost);
-                    
-                    postTitleInput.value = "";
-                    postContentInput.value = "";
-
-                } catch (error) {
-                    console.error("Error posting:", error);
-                }
-            }
-
-            function addPostToUI(post) {
-                const postElement = document.createElement("div");
-                postElement.classList.add("post");
-                postElement.innerHTML = `
-                    <div class="post-content">
-                        <div class="post-title">${post.title}</div>
-                        <div class="post-meta">Posted by <strong>${post.author}</strong></div>
-                        <p>${post.content}</p>
-                    </div>
-                `;
-                postsContainer.prepend(postElement);
-            }    
-</script>
-
-
 </head>
+
 <body>
     <!-- Navbar -->
     <div class="navbar">
@@ -274,6 +192,10 @@ permalink: /binaryOverflow
                     <textarea placeholder="Write your post..." id="post-content"></textarea>
                     <button id="post-button">Post</button>
                 </div>
+                <div id="posts-container"></div>
+                <tbody>
+        <!-- Data rows dynamically added here -->
+                </tbody>
                 <!-- Example Posts -->
                 <div class="post">
                     <div class="vote-section">
@@ -311,91 +233,116 @@ permalink: /binaryOverflow
     </body>
  </html>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        console.log("DOMContentLoaded event triggered!");
-    });
-    const postButton = document.getElementById("post-button");
-    const postTitleInput = document.getElementById("post-title");
-    const postContentInput = document.getElementById("post-content");
-    const postsContainer = document.getElementById("posts-container");
+ <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log(" JavaScript Loaded!");
 
-    if (!postButton) {
-        console.error("Post button not found!");
-        return;
-    }
+            const postButton = document.getElementById("post-button");
+            const postTitleInput = document.getElementById("post-title");
+            const postContentInput = document.getElementById("post-content");
+            const postsContainer = document.getElementById("posts-container");
 
-    postButton.addEventListener("click", function () {
-        console.log("Post button clicked!");
-        createPost();
-    });
-    fetchPosts();
+            if (!postButton) {
+                console.error(" Post button not found!");
+                return;
+            }
 
-    async function fetchPosts() {
-        try {
-            const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/");
-            if (!response.ok) throw new Error("Failed to fetch posts");
-            const data = await response.json();
-
-            postsContainer.innerHTML = "";
-            data.forEach(post => {
-                addPostToUI(post);
+            postButton.addEventListener("click", function () {
+                console.log(" Post button clicked!");
+                createPost();
             });
-        } catch (error) {
-            console.error("Error fetching posts:", error);
-        }
-    }
 
-    async function createPost() {
-        const title = postTitleInput.value.trim();
-        const content = postContentInput.value.trim();
-        if (!title || !content) {
-            alert("Title and content cannot be empty!");
-            return;
+            fetchPosts();
+        });
+
+        /**
+         * Fetch Posts from API
+         */
+        async function fetchPosts() {
+            try {
+                const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/home");
+                if (!response.ok) throw new Error(" Failed to fetch posts");
+                const data = await response.json();
+
+                const postsContainer = document.getElementById("posts-container");
+                postsContainer.innerHTML = "";
+                data.forEach(post => addPostToUI(post));
+
+            } catch (error) {
+                console.error(" Error fetching posts:", error);
+            }
         }
 
-        const postData = {
-            title: title,
-            content: content,
-        }
+        /**
+         * Create a New Post
+         */
+        async function createPost() {
+            console.log("🔹 createPost() function started");
 
-        try {
-            const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(postData)
-            });
-            .then(response => {
-                if (response.ok) {
-                    alert("Saved Successfully");
-                    return response.json();
-                }
-                throw new Error("Network response failed")
-            })
-            .then(data => {
-                document.getElementById('title').value = '';
-                document.getElementById('content').value = '';
-                fetchPosts();
-            })
+            const postTitleInput = document.getElementById("post-title");
+            const postContentInput = document.getElementById("post-content");
+
+            const title = postTitleInput.value.trim();
+            const content = postContentInput.value.trim();
             
-            postTitleInput.value = "";
-            postContentInput.value = "";
+            if (!title || !content) {
+                alert("⚠️ Title and content cannot be empty!");
+                return;
+            }
 
-        } catch (error => {
-            console.error("Error posting:", error);
-        })
-    }
+            const postData = { title, content };
 
-    function addPostToUI(post) {
-        const postElement = document.createElement("div");
-        postElement.classList.add("post");
-        postElement.innerHTML = `
-            <div class="post-content">
-                <div class="post-title">${post.title}</div>
-                <div class="post-meta">Posted by <strong>${post.author}</strong></div>
-                <p>${post.content}</p>
-            </div>
-        `;
-        postsContainer.prepend(postElement);
-    }    
-</script>
+            console.log(" Sending request with:", postData);
+
+            try {
+                const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/post", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(postData)
+                });
+
+                if (!response.ok) {
+                    const errorMessage = await response.text();
+                    console.error("Failed to create post:", errorMessage);
+                    alert("Error creating post: " + errorMessage);
+                    return;
+                }
+
+                const newPost = await response.json();
+                console.log(" Post created successfully!", newPost);
+                addPostToUI(newPost);
+
+                postTitleInput.value = "";
+                postContentInput.value = "";
+                fetchPosts();
+
+            } catch (error) {
+                console.error(" Error posting:", error);
+                alert("⚠️ Failed to create post.");
+            }
+        }
+
+        /**
+         * Add a Post to the UI
+         */
+        function addPostToUI(post) {
+            const postElement = document.createElement("div");
+            postElement.classList.add("post");
+
+            postElement.innerHTML = `
+                <div class="post-content">
+                    <h3 class="post-title">${post.title}</h3>
+                    <p>${post.content}</p>
+                    <div class="post-meta">Posted by <strong>${post.author || "Unknown"}</strong></div>
+                </div>
+            `;
+
+            const postsContainer = document.getElementById("posts-container");
+            if (!postsContainer) {
+                console.error(" Posts container not found!");
+                return;
+            }
+            
+            postsContainer.prepend(postElement);
+        }
+    </script>
