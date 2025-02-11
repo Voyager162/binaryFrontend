@@ -236,7 +236,7 @@ permalink: /binaryOverflow
  <script>
     // import { pythonURI } from '../assets/js/api/config.js'; 
         document.addEventListener("DOMContentLoaded", function () {
-            console.log("🚀 JavaScript Loaded!");
+            console.log("JavaScript Loaded!");
 
             const postButton = document.getElementById("post-button");
             const postTitleInput = document.getElementById("post-title");
@@ -244,12 +244,12 @@ permalink: /binaryOverflow
             const postsContainer = document.getElementById("posts-container");
 
             if (!postButton) {
-                console.error("❌ Post button not found!");
+                console.error("Post button not found!");
                 return;
             }
 
             postButton.addEventListener("click", function () {
-                console.log("🟢 Post button clicked!");
+                console.log("Post button clicked!");
                 createPost();
             });
 
@@ -262,7 +262,7 @@ permalink: /binaryOverflow
         async function fetchPosts() {
             try {
                 const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/home");
-                if (!response.ok) throw new Error("❌ Failed to fetch posts");
+                if (!response.ok) throw new Error("Failed to fetch posts");
                 const data = await response.json();
 
                 const postsContainer = document.getElementById("posts-container");
@@ -270,7 +270,7 @@ permalink: /binaryOverflow
                 data.forEach(post => addPostToUI(post));
 
             } catch (error) {
-                console.error("❌ Error fetching posts:", error);
+                console.error("Error fetching posts:", error);
             }
         }
 
@@ -278,7 +278,7 @@ permalink: /binaryOverflow
          * Create a New Post
          */
         async function createPost() {
-            console.log("🔹 createPost() function started");
+            console.log("createPost() function started");
 
             const postTitleInput = document.getElementById("post-title");
             const postContentInput = document.getElementById("post-content");
@@ -293,7 +293,7 @@ permalink: /binaryOverflow
 
             const postData = { title, content };
 
-            console.log("📤 Sending request with:", postData);
+            console.log("Sending request with:", postData);
 
             try {
                 const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/post", {
@@ -304,13 +304,13 @@ permalink: /binaryOverflow
 
                 if (!response.ok) {
                     const errorMessage = await response.text();
-                    console.error("❌ Failed to create post:", errorMessage);
-                    alert("❌ Error creating post: " + errorMessage);
+                    console.error("Failed to create post:", errorMessage);
+                    alert("Error creating post: " + errorMessage);
                     return;
                 }
 
                 const newPost = await response.json();
-                console.log("✅ Post created successfully!", newPost);
+                console.log("Post created successfully!", newPost);
                 addPostToUI(newPost);
 
                 postTitleInput.value = "";
@@ -318,7 +318,7 @@ permalink: /binaryOverflow
                 fetchPosts();
 
             } catch (error) {
-                console.error("❌ Error posting:", error);
+                console.error("Error posting:", error);
                 alert("⚠️ Failed to create post.");
             }
         }
@@ -340,7 +340,7 @@ permalink: /binaryOverflow
 
             const postsContainer = document.getElementById("posts-container");
             if (!postsContainer) {
-                console.error("❌ Posts container not found!");
+                console.error("Posts container not found!");
                 return;
             }
             
