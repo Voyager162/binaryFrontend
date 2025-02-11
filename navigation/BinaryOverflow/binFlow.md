@@ -238,6 +238,17 @@ permalink: /binaryOverflow
     const postContentInput = document.getElementById("post-content");
     const postsContainer = document.getElementById("posts-container");
 
+
+    const postButton = document.getElementById("post-button");
+    if (!postButton) {
+        console.error("Post button not found!");
+        return;
+    }
+
+    postButton.addEventListener("click", function () {
+        console.log("Post button clicked!");
+        createPost();
+    });
     fetchPosts();
 
     async function fetchPosts() {
@@ -263,7 +274,7 @@ permalink: /binaryOverflow
             return;
         }
 
-        const postDtata = {
+        const postData = {
             title: title,
             content: content,
         }
