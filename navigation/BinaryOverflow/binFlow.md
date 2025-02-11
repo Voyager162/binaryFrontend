@@ -312,6 +312,7 @@ permalink: /binaryOverflow
  </html>
 
 <script>
+    import { pythonURI } from '../assets/js/api/config.js';
     document.addEventListener("DOMContentLoaded", function () {
         console.log("DOMContentLoaded event triggered!");
     });
@@ -333,7 +334,7 @@ permalink: /binaryOverflow
 
     async function fetchPosts() {
         try {
-            const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/");
+            const response = await fetch(`${pythonURI}/api/binaryOverflow/`);
             if (!response.ok) throw new Error("Failed to fetch posts");
             const data = await response.json();
 
@@ -360,7 +361,7 @@ permalink: /binaryOverflow
         }
 
         try {
-            const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/", {
+            const response = await fetch(`${pythonURI}/api/binaryOverflow/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(postData)
