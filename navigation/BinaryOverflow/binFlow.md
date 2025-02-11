@@ -192,6 +192,7 @@ permalink: /binaryOverflow
                     <textarea placeholder="Write your post..." id="post-content"></textarea>
                     <button id="post-button" onclick="createPost()">Post</button>
                 </div>
+                <div id="posts-container"></div>
                 <!-- Example Posts -->
                 <div class="post">
                     <div class="vote-section">
@@ -238,8 +239,6 @@ permalink: /binaryOverflow
     const postContentInput = document.getElementById("post-content");
     const postsContainer = document.getElementById("posts-container");
 
-
-    const postButton = document.getElementById("post-button");
     if (!postButton) {
         console.error("Post button not found!");
         return;
