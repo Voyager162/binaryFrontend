@@ -68,7 +68,7 @@ permalink: /quiz
         }
     </style>
 
-<script>
+<script type="module">
     import {pythonURI, fetchOptions} from '{{site.baseurl}}/assets/js/api/config.js';
 
     const quizGradingsApi = `${pythonURI}/api/quizgrading`;
