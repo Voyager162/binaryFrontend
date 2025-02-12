@@ -1,37 +1,85 @@
-import { pythonURI, javaURI, fetchOptions, login } from '../../assets/js/api/config.js';
+import { pythonURI, fetchOptions } from '../../../assets/js/api/config.js';
 
-const scoresApi = `${pythonURI}/api/general/binaryScores`;
+function sortScoresDescending(scores) {
+  return scores.sort((a, b) => b.user_score - a.user_score);
+}
 
-async function getHighestScoreForLevel(currentLevel) {
+function filterScoresForLevel(level, scores) {
+  return scores.filter((entry) => entry.user_difficulty === level); // Match user_difficulty exactly
+}
+
+async function fetchScores() {
   try {
-    const scoresResponse = await fetch(scoresApi, fetchOptions);
+    const scoresResponse = await fetch(`${pythonURI}/api/binaryLearningGameScores`, fetchOptions);
     if (!scoresResponse.ok) throw new Error('Failed to fetch scores');
     const scores = await scoresResponse.json();
-
-    const levelScores = userScores.filter((entry) => entry.user_difficulty === currentLevel);
-    const highestScore = levelScores.length > 0 ? Math.max(...levelScores.map((entry) => entry.user_score)) : 0;
-
-    updateHighScoreDisplay();
+    return sortScoresDescending(scores); // Sort scores in descending order by default
   } catch (error) {
     console.error('Error fetching scores:', error);
+    return [];
   }
 }
 
-// Function to sort players by score in descending order
-function sortLeaderboard(players) {
-  return players.sort((a, b) => b.score - a.score);
-}
+function displayScores(level, scores, tableId) {
+  const filteredScores = filterScoresForLevel(level, scores);
+  const tableBody = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+  tableBody.innerHTML = ''; // Clear existing rows
 
-// Function to display the leaderboard
-function displayLeaderboard(players) {
-  console.log('Leaderboard:');
-  players.forEach((player, index) => {
-      console.log(`${index + 1}. ${player.name} - ${player.score} points`);
+  filteredScores.forEach((score) => {
+    const row = tableBody.insertRow();
+    const usernameCell = row.insertCell(0);
+    const scoreCell = row.insertCell(1);
+    usernameCell.textContent = score.username;  // Correct field name for username
+    scoreCell.textContent = score.user_score;  // Correct field name for score
   });
 }
 
-window.onload = function () {
-  // Sort and display the leaderboard
-  const sortedPlayers = sortLeaderboard(players);
-  displayLeaderboard(sortedPlayers);
-};
+async function loadAndDisplayScores(level) {
+  const scores = await fetchScores();
+  if (scores) {
+    displayScores(level, scores, `${level}Leaderboard`); // Use `level` directly for table id
+  }
+}
+
+// Run when the DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  // Ensure the default tab is opened after the DOM is fully loaded
+  document.getElementById("defaultOpen")?.click();
+
+  // Set up the buttons to switch between levels
+  const buttons = document.querySelectorAll('.tablink');
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const level = button.textContent.toLowerCase(); // Convert to lowercase
+      showLeaderboard(level); // Load and show leaderboard for selected level
+    });
+  });
+
+  // Load scores for 'easy' by default when the page first loads
+  loadAndDisplayScores('easy');
+});
+
+// Function to show the selected leaderboard
+function showLeaderboard(level) {
+  const allTabs = document.querySelectorAll('.tabcontent');
+  allTabs.forEach(tab => {
+    tab.style.display = 'none';
+  });
+  
+  const activeTab = document.getElementById(level); // Use `level` directly (e.g., 'easy', 'medium')
+  if (activeTab) {
+    activeTab.style.display = 'block';
+  } else {
+    console.error(`Tab with id "${level}" not found`);
+  }
+  
+  const buttons = document.querySelectorAll('.tablink');
+  buttons.forEach(button => {
+    button.classList.remove('active');
+  });
+  
+  const activeButton = Array.from(buttons).find(button => button.textContent.toLowerCase() === level);
+  activeButton.classList.add('active');
+  
+  loadAndDisplayScores(level); // Load and display the scores for the selected level
+}
