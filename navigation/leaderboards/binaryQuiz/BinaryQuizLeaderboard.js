@@ -1,41 +1,42 @@
-import { pythonURI, javaURI, fetchOptions, login } from '../../assets/js/api/config.js';
+import { pythonURI, fetchOptions } from '../../../assets/js/api/config.js';
 
-const scoresApi = `${pythonURI}/api/general/guizgrading`;
+function sortScoresDescending(scores) {
+  return scores.sort((a, b) => b.user_score - a.user_score);
+}
 
-async function getHighestScore() {
+async function fetchScores() {
   try {
-    const scoresResponse = await fetch(scoresApi, fetchOptions);
+    const scoresResponse = await fetch(`${pythonURI}/api/quizgrading`, fetchOptions);
     if (!scoresResponse.ok) throw new Error('Failed to fetch scores');
     const scores = await scoresResponse.json();
-
-    const highestScore = scores.length > 0 ? Math.max(...scores.map((entry) => entry.user_score)) : 0;
-
-    updateHighScoreDisplay();
+    return sortScoresDescending(scores);
   } catch (error) {
     console.error('Error fetching scores:', error);
+    return [];
   }
 }
 
-// Function to sort players by score in descending order
-function sortLeaderboard(players) {
-  return players.sort((a, b) => b.score - a.score);
-}
+function displayScores(scores, tableId) {
+  const tableBody = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+  tableBody.innerHTML = ''; // Clear existing rows
 
-// Function to display the leaderboard
-function displayLeaderboard(players) {
-  console.log('Leaderboard:');
-  players.forEach((player, index) => {
-      console.log(`${index + 1}. ${player.name} - ${player.score} points`);
+  scores.forEach((score) => {
+    const row = tableBody.insertRow();
+    const usernameCell = row.insertCell(0);
+    const scoreCell = row.insertCell(1);
+    usernameCell.textContent = score.username;
+    scoreCell.textContent = score.user_score;
   });
 }
 
-window.onload = function () {
-  // Sort and display the leaderboard
-  const sortedPlayers = sortLeaderboard(players);
-  displayLeaderboard(sortedPlayers);
-};
-
-// Function to update the high score display (assuming this function exists)
-function updateHighScoreDisplay(highestScore) {
-    console.log(`Highest Score: ${highestScore}`);
+async function loadAndDisplayScores() {
+  const scores = await fetchScores();
+  if (scores) {
+    displayScores(scores, 'Leaderboard');
   }
+}
+
+// Run when the DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  loadAndDisplayScores();
+});
