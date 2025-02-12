@@ -180,7 +180,7 @@ permalink: /binaryOverflow
             <a href="#">Trending</a>
             <a href="#">New Posts</a>
          </div>
-        <a href="#" class="login-btn">Login</a>
+        <!-- <a href="#" class="login-btn">Login</a> -->
     </div>
         <!-- Layout -->
         <div class="container">
@@ -234,7 +234,7 @@ permalink: /binaryOverflow
  </html>
 
  <script>
-    // import { pythonURI } from '../assets/js/api/config.js'; 
+// import { pythonURI } from '../assets/js/api/config.js'; 
         document.addEventListener("DOMContentLoaded", function () {
             console.log("JavaScript Loaded!");
 
@@ -304,7 +304,7 @@ permalink: /binaryOverflow
 
                 if (!response.ok) {
                     const errorMessage = await response.text();
-                    console.error("Failed to create post:", errorMessage);
+                    console.error("Failed to create post: ", errorMessage);
                     alert("Error creating post: " + errorMessage);
                     return;
                 }
