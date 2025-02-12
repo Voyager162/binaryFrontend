@@ -93,41 +93,26 @@ layout: page
     </style>
 </head>
 
+<body>
+    <h1>Binary Home Page</h1>
+    <div class="button-container">
+        <a href="{{site.baseurl}}/binaryGame" class="button">
+            <img src="{{site.baseurl}}/images/binaryLearningGame/binaryGameLogo.jpg" alt="Binary Game">
+        </a>
+        <a href="{{site.baseurl}}/logicgame" class="button">Logic Gates Games</a>
+        <a href="{{site.baseurl}}/converter/" class="button">Binary Converter</a>
+        <a href="{{site.baseurl}}/binary_history" class="button">The History of Binary...</a>
+        <a href="{{site.baseurl}}/comments" class="button">Comments and Feedback</a>
+        <a href="{{site.baseurl}}/leaderboard/" class="button">Leaderboard</a>
+        <a href="{{site.baseurl}}/quiz" class="button">
+            <img src="{{site.baseurl}}/images/binaryquiz/binaryquiz.png" alt="Binary Quiz">
+        </a>
+        <a href="{{site.baseurl}}/navigation/binary-calculator" class="button">Binary Calculator</a>
+    </div>
+</body>
 
-<h1>Binary Home Page</h1>
-
-<div class="button-container">
-    <a href="{{site.baseurl}}/binaryGame" class="button">
-        <img src="{{site.baseurl}}/images/binaryLearningGame/binaryGameLogo.jpg" alt="Binary Game">
-    </a>
-</div>
-
-<div>
-    <a href="{{site.baseurl}}/logicgame" class="button">Logic Gates Games</a>
-</div>
-
-<div>
-    <a href="{{site.baseurl}}/converter/" class="button">Binary Converter</a>
-</div>
-
-<div>
-    <a href="{{site.baseurl}}/binary_history" class="button">The History of Binary...</a>
-</div>
-
-<div>
-    <a href="{{site.baseurl}}/comments" class="button">Comments and Feedback</a>
-</div>
-
-<div class="button-container">
-    <a href="{{site.baseurl}}/leaderboard" class="button">
-        <img src="{{site.baseurl}}/images/leaderboard/leaderboardLogo.png" alt="Binary Game">
-    </a>
-</div>
-
-<div>
-    <a href="{{site.baseurl}}/quiz" class="button">Binary Quiz</a>
-</div>
-
-<div>
-    <a href="{{site.baseurl}}/navigation/binary-calculator" class="button">Binary Calculator</a>
-</div>
+<body>
+    <table>
+        <td><a href="{{site.baseurl}}/leaderboard" class="button">Leaderboard</a></td>
+    </table>
+</body>
