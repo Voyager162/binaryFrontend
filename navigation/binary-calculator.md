@@ -122,7 +122,8 @@ hide: true
 </style>
 
 <script>
-    const API_BASE_URL = "http://127.0.0.1:8887"; // Base URL for your Flask backend
+    import { pythonURI } from '../assets/js/api/config.js';
+    const API_BASE_URL = `${pythonURI}`; // Base URL for your Flask backend
 
     async function fetchCounterData() {
         try {
