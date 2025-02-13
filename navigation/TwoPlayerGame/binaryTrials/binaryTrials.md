@@ -5,9 +5,6 @@ search_exclude: true
 permalink: /trial/
 ---
 
-
-
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
