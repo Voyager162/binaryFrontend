@@ -67,8 +67,8 @@ function generateQuestion() {
   if (currentLevel === "easy" || currentLevel === "medium") {
     [inputFormat, outputFormat] = ["decimal", "binary"];
     if (Math.random() > 0.5) [inputFormat, outputFormat] = [outputFormat, inputFormat];
-  } 
-  
+  }
+
   else {
     inputFormat = "hexadecimal";
     outputFormat = Math.random() > 0.5 ? "binary" : "decimal";
@@ -76,24 +76,24 @@ function generateQuestion() {
 
   if (inputFormat === "decimal") {
     questionValue = number.toString(10);
-  } 
-  
+  }
+
   else if (inputFormat === "binary") {
     questionValue = number.toString(2);
-  } 
-  
+  }
+
   else {
     questionValue = number.toString(16).toUpperCase();
   }
 
   if (outputFormat === "decimal") {
     correctAnswer = parseInt(number, 10).toString(10);
-  } 
-  
+  }
+
   else if (outputFormat === "binary") {
     correctAnswer = parseInt(number, 10).toString(2);
-  } 
-  
+  }
+
   else {
     correctAnswer = parseInt(number, 10).toString(16).toUpperCase();
   }
@@ -111,8 +111,8 @@ function generateQuestion() {
 function updateButtonMode() {
   if (isSubmitMode) {
     submitButton.textContent = "Submit";
-  } 
-  
+  }
+
   else {
     submitButton.textContent = "Next";
   }
@@ -249,7 +249,7 @@ function gameOver() {
 function updateHearts() {
   for (let i = 1; i <= 3; i++) {
     const heart = document.getElementById(`heart${i}`);
-    let onDeployedPage = true; 
+    let onDeployedPage = true;
     if (location.hostname === "localhost") {
       onDeployedPage = false;
     }
@@ -318,7 +318,7 @@ async function readScores() {
     if (!scoresResponse.ok) throw new Error('Failed to fetch scores');
     const scores = await scoresResponse.json();
 
-    return(scores);
+    return (scores);
 
   } catch (error) {
     console.error('Error fetching scores:', error);
@@ -371,8 +371,8 @@ async function deleteScores(inputId) {
     if (!response.ok) {
       throw new Error(`Failed to delete score: ${response.statusText}`);
     }
-  } 
-  
+  }
+
   catch (error) {
     console.error('Error deleting score:', error);
     alert('Error deleting score: ' + error.message);
@@ -396,8 +396,8 @@ async function updateScores(inputId, inputScore, inputDifficulty) {
     if (!response.ok) {
       throw new Error(`Failed to update score: ${response.statusText}`);
     }
-  } 
-  
+  }
+
   catch (error) {
     if (error = "Forbidden") {
       alert("You do not have access to perform that function");
@@ -446,105 +446,105 @@ closeScoresButton.addEventListener("click", function () {
 
 
 async function getScoreTableData() {
-
   const scores = await readScores();
 
   let userScores = scores;
-  let scoreInput;
+  let scoreInput, difficultyDropdown;
 
   if (!isUserAdmin) {
     userScores = scores.filter((entry) => String(entry.username) === String(userName));
   }
-  else {
-    userScores = scores;
-  }
 
-  let table;
+  let table = isUserAdmin ? document.getElementById("admin-table") : document.getElementById("table");
 
-  if (isUserAdmin) {
-    table = document.getElementById("admin-table");
-  }
-  else {
-    table = document.getElementById("table");
-  }
-
-    // Clear the table before adding new rows
+  // Clear the table before adding new rows
   while (table.firstChild) {
     table.removeChild(table.firstChild);
   }
 
   userScores.forEach(score => {
-    // build a row for each user
     const tr = document.createElement("tr");
-    if (updating.has(score.id)) {
-    } else {
+    if (!updating.has(score.id)) {
       updating.set(score.id, false);
     }
 
-    // td's to build out each column of data
-    let usernamesTable;
+    let usernamesTable, difficultyCell, scoreTd;
+
     if (isUserAdmin) {
       usernamesTable = document.createElement("td");
       usernamesTable.innerHTML = score.username;
       tr.appendChild(usernamesTable);
     }
-    const difficulty = document.createElement("td");
-    const action = document.createElement("td");
-    if (updating.get(score.id) == true) {
+
+    scoreTd = document.createElement("td");
+
+    if (updating.get(score.id)) {
+      // Score input field
       scoreInput = document.createElement("input");
       scoreInput.type = "text";
       scoreInput.value = score.user_score;
-      scoreInput.className = "scoreInput";
-      difficulty.innerHTML = score.user_difficulty;
-      tr.appendChild(scoreInput);
+      scoreInput.className = "scoreInput"; // Add styling for input
+      scoreTd.appendChild(scoreInput);
+    } else {
+      scoreTd.innerHTML = score.user_score;
     }
-    else {
-      const scoreTd = document.createElement("td");
-      scoreTd.innerHTML = score.user_score; 
-      difficulty.innerHTML = score.user_difficulty; 
-      tr.appendChild(scoreTd);
-    }     
-    // add action for update button if it is an admin
+
+    tr.appendChild(scoreTd);
+
+    difficultyCell = document.createElement("td");
+
+    if (updating.get(score.id)) {
+      // Create and insert dropdown inside the difficulty column
+      difficultyDropdown = document.createElement("select");
+      ["Easy", "Medium", "Hard", "Extreme"].forEach(optionText => {
+        const option = document.createElement("option");
+        option.text = optionText;
+        option.value = optionText.toLowerCase();
+        if (option.value === score.user_difficulty.toLowerCase()) {
+          option.selected = true;
+        }
+        difficultyDropdown.appendChild(option);
+      });
+      difficultyDropdown.className = "dropdown";
+      difficultyCell.appendChild(difficultyDropdown);
+    } else {
+      difficultyCell.innerHTML = score.user_difficulty;
+    }
+
+    tr.appendChild(difficultyCell);
+
+    const action = document.createElement("td");
+
     if (isUserAdmin) {
-      var updateBtn = document.createElement('input');
+      var updateBtn = document.createElement("input");
       updateBtn.type = "button";
       updateBtn.className = "button";
-      if (updating.get(score.id) == true) {
-        updateBtn.value = "Submit";
-      } else {
-        updateBtn.value = "Update"
-      }
-      updateBtn.style = "margin-right:16px";
+      updateBtn.value = updating.get(score.id) ? "Submit" : "Update";
       updateBtn.onclick = function () {
-        if (updating.get(score.id) == true) {
+        if (updating.get(score.id)) {
           updating.set(score.id, false);
-          updateScores(score.id, scoreInput.value.trim().toUpperCase(), "easy");
+          const updatedScore = scoreInput.value.trim();
+          const updatedDifficulty = difficultyDropdown.value;
+          updateScores(score.id, updatedScore, updatedDifficulty);
         } else {
           updating.set(score.id, true);
         }
-        // updateScores(score.id, updatedScore, updatedDifficulty);
         getScoreTableData();
       };
       action.appendChild(updateBtn);
     }
 
-    // add action for delete button
-    var deleteBtn = document.createElement('input');
+    var deleteBtn = document.createElement("input");
     deleteBtn.type = "button";
     deleteBtn.className = "button";
     deleteBtn.value = "Delete";
-    deleteBtn.style = "margin-right:16px"
     deleteBtn.onclick = function () {
       deleteScores(score.id);
       getScoreTableData();
     };
-    action.appendChild(deleteBtn);  
+    action.appendChild(deleteBtn);
 
-    // add data to row
-    tr.appendChild(difficulty);
     tr.appendChild(action);
-
-    // add row to table
     table.appendChild(tr);
   });
 }
