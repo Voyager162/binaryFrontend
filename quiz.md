@@ -3,13 +3,13 @@ layout: post
 title: Quiz Page
 search_exclude: true
 description: Take our quiz to test your knowledge!
-permalink: /quiz
+hide: true
 menu: nav/home.html
 ---
 
 
-<link rel="stylesheet" href="{{site.baseurl}}/binary_frontend/script.js">
-<script src="{{site.baseurl}}/binary_frontend/style.css" defer></script>
+<link rel="stylesheet" href="{{site.baseurl}}/binaryFrontend/script.js">
+<script src="{{site.baseurl}}/binaryFrontend/style.css" defer></script>
 
 <body>
     <div class="quiz-container">

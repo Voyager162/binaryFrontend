@@ -1,6 +1,7 @@
 import { pythonURI, fetchOptions } from './config.js';
 
 console.log("login.js loaded");
+console.log(pythonURI);
 
 document.addEventListener('DOMContentLoaded', function() {
     const baseurl = document.querySelector('.trigger').getAttribute('data-baseurl');
