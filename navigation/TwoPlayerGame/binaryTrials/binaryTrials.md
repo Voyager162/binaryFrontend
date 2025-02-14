@@ -50,8 +50,8 @@ permalink: /trial/
     </div>
     
  <script>
-        let player1Pos = 0; // Player 1 position
-        let player2Pos = 580; // Player 2 position
+        let player1Pos = 280; // Player 1 position
+        let player2Pos = 300; // Player 2 position
         let currentPlayer = 1; // Player 1 starts
 
         const gameBoard = document.getElementById("gameBoard");
