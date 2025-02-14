@@ -233,7 +233,7 @@ function showResults(questions) {
         attempt: new Date().toISOString()
     };
 
-    fetch("http://localhost:8501/api/quizgrading", {
+    fetch(`${pythonURI}/api/quizgrading`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
