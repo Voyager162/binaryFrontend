@@ -415,3 +415,12 @@ body {
     color: var(--text-dark);
     min-height: 100vh;
 }
+
+  .scoreInput {
+    background-color: white !important;
+    color: black !important;
+    width: 10px;
+  }
+  .scoreInput:hover {
+    background-color: white !important;
+  }

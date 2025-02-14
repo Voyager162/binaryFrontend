@@ -14,6 +14,7 @@ let currentQuestion;
 let userName;
 let isSubmitMode = true;
 let isUserAdmin = false;
+let updating = new Map();
 
 window.highScore = 0;
 
@@ -240,13 +241,7 @@ function restartGame() {
 window.restartGame = restartGame;
 
 function gameOver() {
-  gameOverSound.play()
-    .then(() => {
-      console.log("Sound played successfully");
-    })
-    .catch((error) => {
-      console.error("Error playing sound:", error);
-    });
+  gameOverSound.play();
   document.getElementById("final-score").textContent = `Your Score: ${correctCounts}`;
   document.getElementById("game-over-popup").classList.add("visible");
 }
@@ -443,11 +438,19 @@ closeScoresButton.addEventListener("click", function () {
   scoresPopup.classList.remove("visible");
 });
 
+
+
+
+
+
+
+
 async function getScoreTableData() {
 
   const scores = await readScores();
 
   let userScores = scores;
+  let scoreInput;
 
   if (!isUserAdmin) {
     userScores = scores.filter((entry) => String(entry.username) === String(userName));
@@ -470,56 +473,56 @@ async function getScoreTableData() {
     table.removeChild(table.firstChild);
   }
 
-userScores.forEach(score => {
+  userScores.forEach(score => {
     // build a row for each user
     const tr = document.createElement("tr");
+    if (updating.has(score.id)) {
+    } else {
+      updating.set(score.id, false);
+    }
 
     // td's to build out each column of data
     let usernamesTable;
     if (isUserAdmin) {
       usernamesTable = document.createElement("td");
+      usernamesTable.innerHTML = score.username;
+      tr.appendChild(usernamesTable);
     }
-    const scores = document.createElement("td");
     const difficulty = document.createElement("td");
     const action = document.createElement("td");
-           
-    // add content from user data
-    if (isUserAdmin){
-      usernamesTable.innerHTML = score.username;
-    }          
-    scores.innerHTML = score.user_score; 
-    difficulty.innerHTML = score.user_difficulty; 
-
+    if (updating.get(score.id) == true) {
+      scoreInput = document.createElement("input");
+      scoreInput.type = "text";
+      scoreInput.value = score.user_score;
+      scoreInput.className = "scoreInput";
+      difficulty.innerHTML = score.user_difficulty;
+      tr.appendChild(scoreInput);
+    }
+    else {
+      const scoreTd = document.createElement("td");
+      scoreTd.innerHTML = score.user_score; 
+      difficulty.innerHTML = score.user_difficulty; 
+      tr.appendChild(scoreTd);
+    }     
     // add action for update button if it is an admin
     if (isUserAdmin) {
       var updateBtn = document.createElement('input');
       updateBtn.type = "button";
       updateBtn.className = "button";
-      updateBtn.value = "Update";
+      if (updating.get(score.id) == true) {
+        updateBtn.value = "Submit";
+      } else {
+        updateBtn.value = "Update"
+      }
       updateBtn.style = "margin-right:16px";
       updateBtn.onclick = function () {
-        let updatedScore = prompt("Updated score");
-        while (true) {
-          if (isNaN(updatedScore)) {
-            updatedScore = prompt("Please enter a number");
-          }
-          else if (updatedScore < 0) {
-            updatedScore = prompt("Please enter a number above 0");
-          }
-          else {
-            break
-          }
+        if (updating.get(score.id) == true) {
+          updating.set(score.id, false);
+          updateScores(score.id, scoreInput.value.trim().toUpperCase(), "easy");
+        } else {
+          updating.set(score.id, true);
         }
-        let updatedDifficulty = prompt("Updated difficulty");
-        while (true) {
-          if (updatedDifficulty == "easy" || updatedDifficulty == "medium" || updatedDifficulty == "hard" || updatedDifficulty == "extreme" || updatedDifficulty == "") {
-            break
-          }
-          else {
-            updatedDifficulty = prompt("please enter a valid difficulty");
-          }
-        }
-        updateScores(score.id, updatedScore, updatedDifficulty);
+        // updateScores(score.id, updatedScore, updatedDifficulty);
         getScoreTableData();
       };
       action.appendChild(updateBtn);
@@ -538,10 +541,6 @@ userScores.forEach(score => {
     action.appendChild(deleteBtn);  
 
     // add data to row
-    if (isUserAdmin) {
-      tr.appendChild(usernamesTable);
-    }
-    tr.appendChild(scores);
     tr.appendChild(difficulty);
     tr.appendChild(action);
 
