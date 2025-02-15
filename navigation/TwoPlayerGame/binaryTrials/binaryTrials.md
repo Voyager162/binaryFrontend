@@ -2,120 +2,95 @@
 layout: page
 title: Binary Trials 
 search_exclude: true
-permalink: /trial/
+permalink: /trials/
 ---
 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Two Player Question Game</title>
+    <title>Binary Trials</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            text-align: center;
         }
-        .game-board {
+        #gameBoard {
             width: 600px;
-            height: 400px;
+            height: 200px;
+            border: 2px solid black;
+            margin: 20px auto;
             position: relative;
-            background-color: #f0f0f0;
-            border: 2px solid #333;
         }
         .player {
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 30px;
             position: absolute;
-            background-color: red;
+            top: 50%;
+            transform: translateY(-50%);
         }
-        .player2 {
-            background-color: blue;
-        }
-        .question-box {
-            margin-top: 20px;
-        }
+        #player1 { background-color: red; left: 130px; }
+        #player2 { background-color: blue; left: 430px; }
     </style>
 </head>
 <body>
-    <h1>Two Player Question Game</h1>
-    <div class="game-board" id="gameBoard">
-        <div class="player" id="player1" style="top: 180px; left: 0;"></div>
-        <div class="player player2" id="player2" style="top: 180px; left: 580px;"></div>
+    <h2 id="question">Loading question...</h2>
+    <input type="text" id="answer">
+    <button onclick="submitAnswer()">Submit</button>
+    <div id="gameBoard">
+        <div id="player1" class="player"></div>
+        <div id="player2" class="player"></div>
     </div>
-    
- <div class="question-box">
-        <p>Answer the question!</p>
-        <p id="question">What is 5 + 3?</p>
-        <input type="text" id="answer" />
-        <button onclick="submitAnswer()">Submit Answer</button>
-    </div>
-    
- <script>
-        let player1Pos = 0; // Player 1 position
-        let player2Pos = 580; // Player 2 position
+    <script>
+        let player1Pos = 130; // Red block starts at 0px
+        let player2Pos = 430; // Blue block starts at 300px
         let currentPlayer = 1; // Player 1 starts
-
-        const gameBoard = document.getElementById("gameBoard");
         const player1 = document.getElementById("player1");
         const player2 = document.getElementById("player2");
-
+        // Sample questions
         const questions = [
             { question: "What is 5 + 3?", answer: "8" },
             { question: "What is 10 - 4?", answer: "6" },
-            { question: "What is 7 + 2?", answer: "9" }
+            { question: "What is 7 + 2?", answer: "9" },
+            { question: "What is 12 - 5?", answer: "7" },
+            { question: "What is 3 + 6?", answer: "9" }
         ];
-
         let currentQuestionIndex = 0;
-
+        function updateQuestion() {
+            document.getElementById("question").textContent = questions[currentQuestionIndex].question;
+        }
+        // Initialize game
+        window.onload = updateQuestion;
         function submitAnswer() {
             const answer = document.getElementById("answer").value;
             const correctAnswer = questions[currentQuestionIndex].answer;
-
             if (answer === correctAnswer) {
-                alert("Correct! Move backwards.");
-                if (currentPlayer === 1) {
-                    player1Pos -= 20;
-                    player1.style.left = player1Pos + "px";
-                } else {
-                    player2Pos += 20;
-                    player2.style.left = player2Pos + "px";
-                }
+                alert("Correct! Moving away.");
+                player1Pos -= 30; // Moves left (away)
+                player2Pos += 30; // Moves right (away)
+                player1.style.left = player1Pos + "px";
+                player2.style.left = player2Pos + "px";
             } else {
-                alert("Incorrect! Move forwards.");
-                if (currentPlayer === 1) {
-                    player1Pos += 20;
+                alert("Incorrect!");
+                // Check if players touch
+                if (player1Pos >= player2Pos) {
+                    player1Pos = 130;
+                    player2Pos = 430;
                     player1.style.left = player1Pos + "px";
+                    player2.style.left = player2Pos + "px";
+                    alert("Game over! The blocks are in the same position.");
                 } else {
-                    player2Pos -= 20;
+                    player1Pos += 30; // Moves right (closer)
+                    player2Pos -= 30; // Moves left (closer)
+                    player1.style.left = player1Pos + "px";
                     player2.style.left = player2Pos + "px";
                 }
             }
-
-            // Update question and switch player
+            // Cycle through questions
             currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
-            document.getElementById("question").textContent = questions[currentQuestionIndex].question;
             document.getElementById("answer").value = '';
             currentPlayer = currentPlayer === 1 ? 2 : 1;
-        }
-
-        // Handle player movement with keyboard
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "w" && currentPlayer === 1) {
-                player1Pos -= 20;
-                player1.style.left = player1Pos + "px";
-            }
-            if (e.key === "s" && currentPlayer === 1) {
-                player1Pos += 20;
-                player1.style.left = player1Pos + "px";
-            }
-            if (e.key === "ArrowUp" && currentPlayer === 2) {
-                player2Pos -= 20;
-                player2.style.left = player2Pos + "px";
-            }
-            if (e.key === "ArrowDown" && currentPlayer === 2) {
-                player2Pos += 20;
-                player2.style.left = player2Pos + "px";
-            }
-        });
+    }
     </script>
 </body>
 </html>
