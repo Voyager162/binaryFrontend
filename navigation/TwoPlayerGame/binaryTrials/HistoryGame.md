@@ -86,6 +86,8 @@ permalink: /trialsPartners/
         <p>Player 1 and Player 2, are you ready?</p>
         <p>Press any key to confirm!</p>
         <p id="readyStatus">Waiting for both players...</p>
+        <h3></h3>
+        <button class="regularButton"><a href="{{site.baseurl}}/trials">Click here to go back to the binary trials directory.</a></button>
     </div>
     <div id="questionBox">
         <p></p>
