@@ -2,7 +2,7 @@
 layout: page
 title: Binary Converter Game 
 search_exclude: true
-permalink: /ConverterGame/
+permalink: /trialsCompetition/
 ---
 
 <head>
@@ -52,6 +52,26 @@ permalink: /ConverterGame/
             margin: 10px;
             font-size: 16px;
         }
+        .regularButton {
+            all: unset; /* Removes all default styles */
+            background-color: white !important;
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            font-weight: bold;
+            color: black !important;
+        }
+        .regularButton:hover {
+            background-color: gray !important; /* Light gray on hover */
+            transform: scale(1.05);
+        }
+        .regularButton:active {
+            background-color: darkgrey !important; /* Slightly darker gray when clicked */
+            transform: scale(0.95); /* Slight scale-down effect on click */
+        }
     </style>
 </head>
 <body>
@@ -63,7 +83,11 @@ permalink: /ConverterGame/
   <div id="gameBoard">
         <div id="player1" class="player"></div>
         <div id="player2" class="player"></div>
-    </div>
+  </div>
+    <h3></h3>
+    <button class="regularButton"><a href="{{site.baseurl}}/converter">Click here to add your own questions to the game, and look at the current questions and their answers.</a></button>
+    <p></p>
+    <button class="regularButton"><a href="{{site.baseurl}}/trials">Click here to go back to the binary trials directory.</a></button>
 
  <script>
         document.addEventListener("DOMContentLoaded", () => {

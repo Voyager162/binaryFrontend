@@ -95,6 +95,8 @@ permalink: /binary_history/
 <button class="regularButton" onclick="addEvent()">Submit Event</button>
 <p></p>
 <button class="regularButton"><a href="{{site.baseurl}}/binary_history/blog">Check out my Blog!</a></button>
+<p></p>
+<button class="regularButton"><a href="{{site.baseurl}}/trialsPartners">Back to Game</a></button>
 
 <script type="module" defer>
     import { pythonURI, fetchOptions } from '../assets/js/api/config.js';

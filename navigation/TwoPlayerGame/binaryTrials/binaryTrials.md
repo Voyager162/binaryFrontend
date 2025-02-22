@@ -12,7 +12,7 @@ permalink: /trials/
     <title>Binary Trials</title>
     <style>
         body {
-            background: linear-gradient(135deg, #ff8c00, #ffa756, red); /* 180deg for top-to-bottom gradient */
+            background: linear-gradient(135deg, #ff8c00, orange, red); /* 180deg for top-to-bottom gradient */
             color: #ffffff;
             font-family: Arial, sans-serif;
             text-align: center;
@@ -20,7 +20,7 @@ permalink: /trials/
         }
         p {
             color: black;
-            font-size: 18px
+            font-size: 18px;
         }
         .regularButton {
             all: unset; /* Removes all default styles */
@@ -52,7 +52,7 @@ permalink: /trials/
     <p></p>
     <p>Competition - Converting numbers to binary, where two people compete against each other and one wins!</p>
     <p></p>
-    <button class="regularButton"><a href="{{site.baseurl}}/trialsPartners">Partner Game</a></button>
+    <button class="regularButton"><a href="{{site.baseurl}}/trialsCompetition">Competition Game</a></button>
     <p></p>
     <p>From creators Rutvik and Shaurya, we hope you enjoy these games!</p>
 </body>
