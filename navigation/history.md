@@ -73,11 +73,11 @@ permalink: /binary_history/
             color: black !important;
         }
         .regularButton:hover {
-            background-color: lightgray !important; /* Light gray on hover */
+            background-color: gray !important; /* Light gray on hover */
             transform: scale(1.05);
         }
         .regularButton:active {
-            background-color: grey !important; /* Slightly darker gray when clicked */
+            background-color: darkgrey !important; /* Slightly darker gray when clicked */
             transform: scale(0.95); /* Slight scale-down effect on click */
         }
     </style>
