@@ -271,7 +271,7 @@ permalink: /binaryOverflow
      */
     async function fetchPosts() {
         try {
-            const response = await fetch("${pythonURI}/api/binaryOverflow/home", fetchOptions);
+            const response = await fetch(`${pythonURI}/api/binaryOverflow/home`, fetchOptions);
             if (!response.ok) throw new Error("Failed to fetch posts");
             const data = await response.json();
 
@@ -287,8 +287,8 @@ permalink: /binaryOverflow
         /**
          * Create a New Post
          */
-        // async function createPost() {
-        //    console.log("createPost() function started");
+// async function createPost() {
+   // console.log("createPost() function started");
 
     const postTitleInput = document.getElementById("post-title");
     const postContentInput = document.getElementById("post-content");
