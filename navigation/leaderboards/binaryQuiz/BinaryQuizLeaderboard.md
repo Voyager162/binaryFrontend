@@ -21,12 +21,12 @@ permalink: /BinaryQuizLeaderboard/
     <style>
     body {
       font-family: Arial, sans-serif;
-      background-color:rgb(183, 162, 218);
+      background-color:rgb(191, 214, 251);
       text-align: center;
     }
     .tabs {
       margin-bottom: 20px;
-      background-color: rgb(78, 103, 144);
+      background-color: #0091C2;
       padding: 10px 0;
       border-radius: 10px;
     }
@@ -46,7 +46,7 @@ permalink: /BinaryQuizLeaderboard/
     }
     .tabcontent {
       display: none;
-      background: rgb(103, 78, 144);
+      background: rgb(191, 214, 251);
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);

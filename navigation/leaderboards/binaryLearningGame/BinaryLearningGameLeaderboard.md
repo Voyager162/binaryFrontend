@@ -21,7 +21,7 @@ permalink: /BinaryLearningGameLeaderboard/
     <style>
     body {
       font-family: Arial, sans-serif;
-      background-color:rgb(183, 162, 218);
+      background-color:rgb(191, 214, 251);
       text-align: center;
     }
     .tabs {
@@ -31,22 +31,25 @@ permalink: /BinaryLearningGameLeaderboard/
       border-radius: 10px;
     }
     .tablink {
-      background-color: #4CAF50;
-      color: red;
+      background-color: rgb(109, 160, 182);
+      color:rgb(109, 160, 182);
       border: none;
       padding: 10px 15px;
       margin: 5px;
       cursor: pointer;
       border-radius: 5px;
-      transition: 0.3s;
+      transition: all 0.3s ease-in-out;
       font-size: 16px;
     }
     .tablink:hover, .tablink.active {
-      background-color:#45a049;
+      color:rgb(109, 160, 182);
+      background-color: #45a049;
+      transform: scale(1.1);
+      filter: brightness(1.2);
     }
     .tabcontent {
       display: none;
-      background: rgb(103, 78, 144);
+      background: rgb(191, 214, 251);
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -69,7 +72,7 @@ permalink: /BinaryLearningGameLeaderboard/
     }
     th {
       background-color: #4CAF50;
-      color: white;
+      color:rgb(109, 160, 182);
       text-transform: uppercase;
     }
     .leaderboard-row:nth-child(even) {

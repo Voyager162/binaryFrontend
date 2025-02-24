@@ -25,7 +25,7 @@ permalink: /LogicGatesLeaderboard/
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color:rgb(183, 162, 218);
+      background-color:rgb(191, 214, 251);
       text-align: center;
     }
     .tabs {
@@ -50,7 +50,7 @@ permalink: /LogicGatesLeaderboard/
     }
     .tabcontent {
       display: none;
-      background: rgb(103, 78, 144);
+      background: rgb(191, 214, 251);
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
