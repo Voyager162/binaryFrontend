@@ -13,12 +13,12 @@ permalink: /BinaryLearningGameLeaderboard/
   <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/navigation/leaderboards/binaryLearningGame/styling.css">
 </head>
 <body>
-  <div class="tabs">
+   <div class="tabs">
     <button class="tablink" id="defaultOpen">Easy</button>
     <button class="tablink">Medium</button>
     <button class="tablink">Hard</button>
     <button class="tablink">Extreme</button>
-    <style>
+<style>
     body {
       font-family: Arial, sans-serif;
       background-color:rgb(191, 214, 251);
@@ -29,17 +29,21 @@ permalink: /BinaryLearningGameLeaderboard/
       background-color: rgb(78, 103, 144);
       padding: 10px 0;
       border-radius: 10px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
     }
     .tablink {
-      background-color: rgb(109, 160, 182);
+      background-color: rgb(109, 160, 182) !important;
       color:rgb(109, 160, 182);
       border: none;
       padding: 10px 15px;
-      margin: 5px;
+      margin: 5px 10px;
       cursor: pointer;
       border-radius: 5px;
       transition: all 0.3s ease-in-out;
       font-size: 16px;
+      width: 21%;
     }
     .tablink:hover, .tablink.active {
       color:rgb(109, 160, 182);
@@ -78,7 +82,7 @@ permalink: /BinaryLearningGameLeaderboard/
     .leaderboard-row:nth-child(even) {
       background-color: rgb(103, 78, 144);
     }
-  </style>
+</style>
   </div>
 <div id="easy" class="tabcontent">
   <table id="easyLeaderboard">
@@ -128,9 +132,9 @@ permalink: /BinaryLearningGameLeaderboard/
   </table>
 </div>
 
-  <script type="module" src="{{site.baseurl}}/navigation/leaderboards/binaryLearningGame/BinaryLearningGameLeaderboard.js"></script>
-  <script type="module" src="{{site.baseurl}}/assets/js/api/config.js"></script>
-  <script>
+<script type="module" src="{{site.baseurl}}/navigation/leaderboards/binaryLearningGame/BinaryLearningGameLeaderboard.js"></script>
+<script type="module" src="{{site.baseurl}}/assets/js/api/config.js"></script>
+<script>
     function showLeaderboard(level) {
       const allTabs = document.querySelectorAll('.tabcontent');
       allTabs.forEach(tab => {
@@ -152,6 +156,6 @@ permalink: /BinaryLearningGameLeaderboard/
     }
 
     document.getElementById("defaultOpen").click();
-  </script>
+</script>
 </body>
 </html>

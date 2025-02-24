@@ -68,7 +68,7 @@ permalink: /BinaryQuizLeaderboard/
       text-align: left;
     }
     th {
-      background-color: #4CAF50;
+      background-color: rgb(78, 103, 144) !important;
       color: white;
       text-transform: uppercase;
     }
