@@ -3,7 +3,8 @@ layout: page
 title: Deployment Blog
 permalink: /deployment/blog/
 ---
-## Step 1: change ports to 8051
+# Deployment
+## Step one: change ports to 8501
 ### Main.py
 ```python
 if __name__ == "__main__":
@@ -31,9 +32,10 @@ proxy_pass http://localhost:8501;
 ```
 This will tell the nginx server to pass requests to the port 8501 on the host machine
 
-## Collage Board Video Notes
 
-VIDEO 4.1: 
+# Collage Board Video Notes
+
+### VIDEO 4.1.1-2: 
 
 - Around 1975 we had big computer, discovered that working with big computers in one area was bad so the internet was thought about
 - Computers can send and receive data; they are an object use for
@@ -45,7 +47,7 @@ VIDEO 4.1:
 - Bandwidth: The maximum amount of data that can be sent (bits per second)
 - We use packets because there is a maximum amount of data (Bandwidth) that can be sent
 
-VIDEO 4.2 
+### VIDEO 4.2.1-2
 
 -The internet has been engineered to be fault tolerant, with abstractions for routing and transmitting data
 - Redundancy is the inclusion of extra components that can be used to mitigate failure of a system if other components fail
@@ -68,8 +70,8 @@ Sequential Computing: Tasks are done one after another. It is a computational mo
 
 
 
-
-
-
-
-
+### VIDEO 4.3.1
+- A computer needs to handle many tasks
+- Sequential processing: Tasks are run one after the other
+- Parrallel Processing: Tasks are run at the same time
+- Distributed Processing: Tasks are run on different computers
