@@ -1,10 +1,6 @@
 ---
-layout: post
+layout: page
 title: Quiz Page
-search_exclude: true
-description: Take our quiz to test your knowledge!
-hide: true
-menu: nav/home.html
 permalink: /quiz
 ---
 
