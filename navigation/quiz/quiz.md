@@ -1,10 +1,6 @@
 ---
-layout: post
+layout: page
 title: Quiz Page
-search_exclude: true
-description: Take our quiz to test your knowledge!
-hide: true
-menu: nav/home.html
 permalink: /quiz
 ---
 
@@ -20,6 +16,7 @@ permalink: /quiz
 
 <div class="quiz-container">
     <h3>Quiz Attempt History</h3> 
+    <button id="createAttempt">Create New Attempt</button> <!-- Add this line -->
     <table id="attemptsTable">
         <thead>
             <tr>
@@ -69,7 +66,7 @@ permalink: /quiz
     </style>
 
 <script type="module">
-    import {pythonURI, fetchOptions} from '{{site.baseurl}}/assets/js/api/config.js';
+    import { pythonURI, javaURI, fetchOptions, login } from '{{site.baseurl}}/assets/js/api/config.js';
 
     const quizGradingsApi = `${pythonURI}/api/quizgrading`;
 
@@ -233,7 +230,7 @@ function showResults(questions) {
         attempt: new Date().toISOString()
     };
 
-    fetch("http://localhost:8501/api/quizgrading", {
+    fetch(quizGradingsApi, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -250,21 +247,27 @@ function showResults(questions) {
     });
 }
 
-function deleteAttempt(id) {
-    fetch(`${quizGradingsApi}/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("attempt deleted", data.message);
-        loadAttempts(); // Reload attempts after deletion
-    })
-    .catch(error => {
-        console.error("Error deleting score:", error);
+async function deleteAttempt(inputId) {
+  const scoreData = {
+    id: inputId
+  } 
+
+  try {
+    const smthing = await fetch(quizGradingsApi, {
+      ...fetchOptions,
+      method: 'DELETE',
+      body: JSON.stringify(scoreData),
     });
+
+    if (!smthing.ok) {
+      throw new Error(`Failed to delete score: ${smthing.statusText}`);
+    }
+  } 
+  
+  catch (error) {
+    console.error('Error deleting score:', error);
+    alert('Error deleting score: ' + error.message);
+  }
 }
 
 async function loadAttempts() {
@@ -306,7 +309,7 @@ function editAttempt(id) {
     const quizgrade = prompt("Enter new quiz grade:");
     const attempt = prompt("Enter new attempt number:");
     if (quizgrade && attempt) {
-        fetch(`${quizGradingsApi}/${id}`, {
+        fetch(quizGradingsApi, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id, quizgrade, attempt }),
