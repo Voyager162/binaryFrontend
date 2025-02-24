@@ -232,27 +232,16 @@ permalink: /binaryOverflow
 
 <script type="module">
     import { pythonURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js'; 
-    import {buildPostBox} from '{{site.baseurl}}/navigation/BinaryOverflow/postingTest.js'
-
-    const div = document.getElementById("jimmeh")
-    const postBox = buildPostBox()
-    div.append(postBox)
-
-     const options = {
-       ...fetchOptions,
-       method: 'POST',
-       body: JSON.stringify({"title": title, "content": content})
-   };
-
+    import { buildPostBox } from '{{site.baseurl}}/navigation/BinaryOverflow/postingTest.js';
 
     document.addEventListener("DOMContentLoaded", function () {
         console.log("JavaScript Loaded!");
 
-        const postButton = document.getElementById("post-button");
-        const postTitleInput = document.getElementById("post-title");
-        const postContentInput = document.getElementById("post-content");
-        const postsContainer = document.getElementById("posts-container");
+        const div = document.getElementById("jimmeh");
+        const postBox = buildPostBox();
+        div.append(postBox);
 
+        const postButton = document.getElementById("post-button");
         if (!postButton) {
             console.error("Post button not found!");
             return;
@@ -266,9 +255,6 @@ permalink: /binaryOverflow
         fetchPosts();
     });
 
-    /**
-     * Fetch Posts from API
-     */
     async function fetchPosts() {
         try {
             const response = await fetch(`${pythonURI}/api/binaryOverflow/home`, fetchOptions);
@@ -284,58 +270,53 @@ permalink: /binaryOverflow
         }
     }
 
-        /**
-         * Create a New Post
-         */
-// async function createPost() {
-   // console.log("createPost() function started");
+    async function createPost() {
+        console.log("createPost() function started");
 
-    const postTitleInput = document.getElementById("post-title");
-    const postContentInput = document.getElementById("post-content");
+        const postTitleInput = document.getElementById("post-title");
+        const postContentInput = document.getElementById("post-content");
 
-    const title = postTitleInput.value.trim();
-    const content = postContentInput.value.trim();
-            
-    //     if (!title || !content) {
-    //         alert("⚠️ Title and content cannot be empty!");
-    //         return;
-    //     }
+        // ✅ Define title and content properly before using them
+        const title = postTitleInput?.value.trim();
+        const content = postContentInput?.value.trim();
 
-    const postData = { title, content };
+        if (!title || !content) {
+            alert("⚠️ Title and content cannot be empty!");
+            return;
+        }
 
-        //     console.log("Sending request with:", postData);
+        const options = { 
+            ...fetchOptions,
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ title, content }) 
+        };
 
-        //     try {
-        //         const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/post", {
-        //             ...fetchOptions,
-        //             method: "POST",
-        //             body: JSON.stringify({"title": title, "content": content})
-        //         });
+        try {
+            const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/post", options);
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                console.error("Failed to create post:", errorMessage);
+                alert("Error creating post: " + errorMessage);
+                return;
+            }
 
-        //         if (!response.ok) {
-        //             const errorMessage = await response.text();
-        //             console.error("Failed to create post: ", errorMessage);
-        //             alert("Error creating post: " + errorMessage);
-        //             return;
-        //         }
+            const newPost = await response.json();
+            console.log("Post created successfully!", newPost);
+            addPostToUI(newPost);
 
-        //         const newPost = await response.json();
-        //         console.log("Post created successfully!", newPost);
-        //         addPostToUI(newPost);
+            postTitleInput.value = "";
+            postContentInput.value = "";
+            fetchPosts();
 
-        //         postTitleInput.value = "";
-        //         postContentInput.value = "";
-        //         fetchPosts();
+        } catch (error) {
+            console.error("Error posting:", error);
+            alert("⚠️ Failed to create post.");
+        }
+    }
 
-        //     } catch (error) {
-        //         console.error("Error posting:", error);
-        //         alert("⚠️ Failed to create post.");
-        //     }
-        // }
-
-    /**
-     * Add a Post to the UI
-     */
     function addPostToUI(post) {
         const postElement = document.createElement("div");
         postElement.classList.add("post");
@@ -356,4 +337,4 @@ permalink: /binaryOverflow
         
         postsContainer.prepend(postElement);
     }
-    </script>
+</script>
