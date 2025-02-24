@@ -188,9 +188,6 @@ permalink: /binaryOverflow
             <div class="main-content">
                 <!-- Post Input Box -->
                 <div class="post-box" id='jimmeh'>
-                    <input type="text" id="post-title" placeholder="Enter title" />
-                    <textarea id="post-content" placeholder="Write your post here..."></textarea>
-                    <button id="post-button">Post</button>  <!-- ✅ This was missing -->
                 </div>
                 <div id="posts-container"></div>
                 <tbody>
