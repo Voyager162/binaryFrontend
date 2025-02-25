@@ -137,12 +137,16 @@ permalink: /binaryOverflow
             }
             .post-content {
                 flex: 1;
+                color: black !important;
             }
             .post-title {
                 font-size: 18px;
                 font-weight: bold;
                 margin-bottom: 5px;
-                color: #2d2d2d;
+                color: black !important;
+            }
+            .post-content p {
+                color: black !important;
             }
             .post-meta {
                 font-size: 14px;
