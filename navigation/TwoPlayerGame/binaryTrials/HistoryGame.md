@@ -102,11 +102,15 @@ permalink: /trialsPartners/
     </div>
     <h3 id="turnInfo">Player 1's Turn</h3>
     <h3></h3>
+    <h3 id="stopwatch">Time: 0 seconds</h3>
+    <h3></h3>
     <button class="regularButton"><a href="{{site.baseurl}}/binary_history">Click here to add your own questions to the game, and look at the current questions and their answers.</a></button>
     <p></p>
     <button class="regularButton"><a href="{{site.baseurl}}/trials">Click here to go back to the binary trials directory.</a></button>
     <script type="module">
         import { pythonURI, fetchOptions } from '../assets/js/api/config.js';
+        let timeElapsed = 0;
+        let stopwatchInterval;
         let player1Pos = 130;
         let player2Pos = 430;
         let currentPlayer = 1;
@@ -122,6 +126,18 @@ permalink: /trialsPartners/
                 document.getElementById("readyPopup").classList.add("hidden");
                 fetchQuestions();
             }
+        }
+        function startStopwatch() {
+            stopwatchInterval = setInterval(() => {
+                timeElapsed++;
+                document.getElementById("stopwatch").textContent = `Time: ${timeElapsed} seconds`;
+            }, 1000);
+        }
+        function stopStopwatch() {
+            clearInterval(stopwatchInterval);
+            alert(`Game over! The players collided after ${timeElapsed} seconds.`);
+            timeElapsed = 0; // Reset for the next round
+            document.getElementById("stopwatch").textContent = `Time: 0 seconds`;
         }
         function submitAnswer() {
             // Ensure questions are loaded before allowing submission
@@ -151,13 +167,14 @@ permalink: /trialsPartners/
             updateQuestion();
         }
         function startMovement() {
+            startStopwatch(); // Start the stopwatch when movement begins
             setInterval(() => {
                 player1Pos += 1;
                 player2Pos -= 1;
                 player1.style.left = player1Pos + "px";
                 player2.style.left = player2Pos + "px";
-                if (player1Pos >= player2Pos) {
-                    alert("Game over! The players have collided.");
+                if (player1Pos + 28 >= player2Pos) {
+                    stopStopwatch(); // Stop the stopwatch if players collide
                     player1Pos = 130;
                     player2Pos = 430;
                     player1.style.left = player1Pos + "px";
