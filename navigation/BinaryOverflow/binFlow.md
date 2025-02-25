@@ -176,8 +176,7 @@ permalink: /binaryOverflow
     <div class="navbar">
          <div class="logo">Binary Overflow</div>
          <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Trending</a>
+            <a href="http://127.0.0.1:4887/binaryFrontend/">Home</a>
             <a href="#">New Posts</a>
          </div>
         <!-- <a href="#" class="login-btn">Login</a> -->
@@ -187,12 +186,11 @@ permalink: /binaryOverflow
             <!-- Main Content -->
             <div class="main-content">
                 <!-- Post Input Box -->
-                <div class="post-box" id='jimmeh'>
+                <div class="post-box" id='jimmeh'></div>
+                <!-- Posts Container -->
+                <div id="posts-container">
+                    <!-- New posts will be added here dynamically -->
                 </div>
-                <div id="posts-container"></div>
-                <tbody>
-        <!-- Data rows dynamically added here -->
-                </tbody>
                 <!-- Example Posts -->
                 <div class="post">
                     <div class="vote-section">
@@ -255,79 +253,83 @@ permalink: /binaryOverflow
         fetchPosts();
     });
 
-    async function fetchPosts() {
-        try {
-            const response = await fetch(`${pythonURI}/api/binaryOverflow/home`, fetchOptions);
-            if (!response.ok) throw new Error("Failed to fetch posts");
-            const data = await response.json();
+  async function fetchPosts() {
+    try {
+        const response = await fetch(`${pythonURI}/api/binaryOverflow/home`, fetchOptions);
+        if (!response.ok) throw new Error("Failed to fetch posts");
 
-            console.log("Fetched posts from API:", data); // ✅ Debugging log
+        const data = await response.json();
+        console.log("Fetched posts from API:", data); // ✅ Debugging Log
 
-            const postsContainer = document.getElementById("posts-container");
+        const postsContainer = document.getElementById("posts-container");
 
-            // ✅ Ensure postsContainer exists before clearing it
-            if (postsContainer) {
-                postsContainer.innerHTML = ""; 
-            }
-
-            data.forEach(post => addPostToUI(post)); // ✅ Show fetched posts
-
-        } catch (error) {
-            console.error("Error fetching posts:", error);
+        if (postsContainer) {
+            postsContainer.innerHTML = ""; // ✅ Clear UI Before Adding Posts
         }
+
+        data.forEach(post => {
+            console.log("Adding fetched post to UI:", post);
+            addPostToUI(post);
+        });
+
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+    }
+}
+
+async function createPost() {
+    console.log("createPost() function started");
+
+    const postTitleInput = document.getElementById("post-title");
+    const postContentInput = document.getElementById("post-content");
+
+    const title = postTitleInput?.value.trim();
+    const content = postContentInput?.value.trim();
+
+    if (!title || !content) {
+        alert("⚠️ Title and content cannot be empty!");
+        return;
     }
 
-    async function createPost() {
-        console.log("createPost() function started");
+    const options = { 
+        ...fetchOptions,
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ title, content }) 
+    };
 
-        const postTitleInput = document.getElementById("post-title");
-        const postContentInput = document.getElementById("post-content");
-
-        const title = postTitleInput?.value.trim();
-        const content = postContentInput?.value.trim();
-
-        if (!title || !content) {
-            alert("⚠️ Title and content cannot be empty!");
+    try {
+        const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/post", options);
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            console.error("Failed to create post:", errorMessage);
+            alert("Error creating post: " + errorMessage);
             return;
         }
 
-        const options = { 
-            ...fetchOptions,
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ title, content }) 
-        };
+        const newPost = await response.json();
+        console.log("Post created successfully!", newPost);
 
-        try {
-            const response = await fetch("http://127.0.0.1:8887/api/binaryOverflow/post", options);
-            if (!response.ok) {
-                const errorMessage = await response.text();
-                console.error("Failed to create post:", errorMessage);
-                alert("Error creating post: " + errorMessage);
-                return;
-            }
+        // ✅ Add Debugging Log
+        console.log("Calling addPostToUI with:", newPost);
 
-            const newPost = await response.json();
-            console.log("Post created successfully!", newPost);
+        // ✅ Add the new post immediately to the UI
+        addPostToUI(newPost);
 
-            // ✅ Add new post to UI immediately
-            addPostToUI(newPost);
+        // ✅ Clear input fields
+        postTitleInput.value = "";
+        postContentInput.value = "";
 
-            // ✅ Clear input fields
-            postTitleInput.value = "";
-            postContentInput.value = "";
+        // ✅ Fetch posts again to ensure persistence
+        setTimeout(fetchPosts, 1000);
 
-            // ✅ Fetch posts again to ensure persistence
-            setTimeout(fetchPosts, 1000); // Small delay to allow API update
-
-        } catch (error) {
-            console.error("Error posting:", error);
-            alert("⚠️ Failed to create post.");
-        }
+    } catch (error) {
+        console.error("Error posting:", error);
+        alert("⚠️ Failed to create post.");
     }
-
+}
     function addPostToUI(post) {
         console.log("Adding post to UI:", post); // ✅ Debugging log
 
