@@ -78,10 +78,10 @@ permalink: /binaryOverflow
                 flex: 1; /* Keeps sidebar minimal */
                 min-width: 250px; /* Prevents sidebar from being too large */
                 max-width: 300px; /* Ensures it stays small */
-                background: black;
+                background: black !important;
                 padding: 15px;
                 border-radius: 5px;
-                margin-left: -1400px; /* Adds spacing between main content and sidebar */
+                margin-left: -350px; /* Adds spacing between main content and sidebar */
                 margin-top: 75px;
             }
             /* Post Box */
@@ -237,8 +237,6 @@ permalink: /binaryOverflow
                 </ul>
             </div>
         </div>
-    </body>
- </html>
 
 <script type="module">
     import { pythonURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js'; 
