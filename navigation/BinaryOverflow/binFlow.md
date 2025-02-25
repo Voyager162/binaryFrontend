@@ -191,6 +191,7 @@ permalink: /binaryOverflow
                 <div id="posts-container">
                     <!-- New posts will be added here dynamically -->
                 </div>
+                <button id="post-button">Post</button>  <!-- ✅ This was missing -->
                 <!-- Example Posts -->
                 <div class="post">
                     <div class="vote-section">
