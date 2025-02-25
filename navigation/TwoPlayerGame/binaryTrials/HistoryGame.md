@@ -123,45 +123,6 @@ permalink: /trialsPartners/
                 fetchQuestions();
             }
         }
-        window.addEventListener("keydown", () => {
-            if (!player1Ready) {
-                player1Ready = true;
-                document.getElementById("readyStatus").textContent = "Player 1 is ready. Waiting for Player 2...";
-            } else if (!player2Ready) {
-                player2Ready = true;
-                document.getElementById("readyStatus").textContent = "Both players are ready! Starting game...";
-                setTimeout(checkReady, 1000);
-            }
-        });
-        async function fetchQuestions() { 
-            try {
-                const response = await fetch(pythonURI + "/api/binary-history", fetchOptions);
-                if (response.ok) {
-                    const data = await response.json();
-                    // Sort by year, oldest to newest (optional)
-                    data.sort((a, b) => a.year - b.year);
-                    // Convert to questions array
-                    questions = data.map(event => ({
-                        question: event.description,
-                        answer: event.year.toString()
-                    }));
-                    if (questions.length > 0) {
-                        updateQuestion(); // Start the game once questions are loaded
-                    } else {
-                        document.getElementById("question").textContent = "No questions available.";
-                    }
-                } else {
-                    throw new Error("Network response failed");
-                }
-            } catch (error) {
-                console.error("Error fetching questions:", error);
-                document.getElementById("question").textContent = "Hmm... it seems like the server is down, try again later.";
-            }
-        }
-        function updateQuestion() {
-            document.getElementById("question").textContent = questions[currentQuestionIndex].question;
-            document.getElementById("turnInfo").textContent = `Player ${currentPlayer}'s Turn`;
-        }
         function submitAnswer() {
             // Ensure questions are loaded before allowing submission
             if (questions.length === 0) {
@@ -178,29 +139,76 @@ permalink: /trialsPartners/
                     player2Pos += 30;
                 }
             } else {
-                alert("Incorrect! Moving forward.");
-                if (currentPlayer === 1) {
-                    player1Pos += 30;
-                } else {
-                    player2Pos -= 30;
-                }
+                alert("Incorrect! Keep moving forward.");
             }
             // Update player positions
             player1.style.left = player1Pos + "px";
             player2.style.left = player2Pos + "px";
-            // Check if players collide
-            if (player1Pos >= player2Pos) {
-                alert("Game over! The players have collided.");
-                player1Pos = 130;
-                player2Pos = 430;
-            }
             // Cycle through questions
             currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
             document.getElementById("answer").value = '';
             currentPlayer = currentPlayer === 1 ? 2 : 1;
             updateQuestion();
         }
+        function startMovement() {
+            setInterval(() => {
+                player1Pos += 1;
+                player2Pos -= 1;
+                player1.style.left = player1Pos + "px";
+                player2.style.left = player2Pos + "px";
+                if (player1Pos >= player2Pos) {
+                    alert("Game over! The players have collided.");
+                    player1Pos = 130;
+                    player2Pos = 430;
+                    player1.style.left = player1Pos + "px";
+                    player2.style.left = player2Pos + "px";
+                }
+            }, 100);
+        }
         document.getElementById("submitAnswer").addEventListener("click", submitAnswer);
+        window.addEventListener("keydown", () => {
+            if (!player1Ready) {
+                player1Ready = true;
+                document.getElementById("readyStatus").textContent = "Player 1 is ready. Waiting for Player 2...";
+            } else if (!player2Ready) {
+                player2Ready = true;
+                document.getElementById("readyStatus").textContent = "Both players are ready! Starting game...";
+                setTimeout(() => {
+                    checkReady();
+                    startMovement();
+                }, 1000);
+            }
+        });
+        async function fetchQuestions() { 
+            try {
+                const response = await fetch(pythonURI + "/api/binary-history", fetchOptions);
+                if (response.ok) {
+                    const data = await response.json();
+                    // Sort by year, oldest to newest (optional)
+                    data.sort((a, b) => a.year - b.year);
+                    // Convert to questions array
+                    questions = data.map(event => ({
+                        question: event.description,
+                        answer: event.year.toString()
+                    }));
+                    if (questions.length > 0) {
+                        questions = questions.sort(() => Math.random() - 0.5); // Randomize order
+                        updateQuestion(); // Start the game once questions are loaded
+                    } else {
+                        document.getElementById("question").textContent = "No questions available.";
+                    }
+                } else {
+                    throw new Error("Network response failed");
+                }
+            } catch (error) {
+                console.error("Error fetching questions:", error);
+                document.getElementById("question").textContent = "Hmm... it seems like the server is down, try again later.";
+            }
+        }
+        function updateQuestion() {
+            document.getElementById("question").textContent = questions[currentQuestionIndex].question;
+            document.getElementById("turnInfo").textContent = `Player ${currentPlayer}'s Turn`;
+        }
     </script>
 </body>
 </html>
