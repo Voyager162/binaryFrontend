@@ -13,7 +13,7 @@ permalink: /binaryOverflow
 <style>
             /* General Styling */
         body {
-                background: linear-gradient(150deg, #0e3348, #1b2b34, #1b3b4d, #124c6c);
+                background: linear-gradient(150deg, #0e3348, #247994, #147ea0, #0f547b);
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
@@ -258,6 +258,7 @@ permalink: /binaryOverflow
                 <ul>
                     <li><a href="http://127.0.0.1:4887/binaryFrontend/binaryGame/">Binary Game</a></li>
                     <li><a href="http://127.0.0.1:4887/binaryFrontend/quiz">Binary Quiz</a></li>
+                    <li><a href="http://127.0.0.1:4887/binaryFrontend/trials">Binary Trials</a></li>
                 </ul>
             </div>
         </div>
