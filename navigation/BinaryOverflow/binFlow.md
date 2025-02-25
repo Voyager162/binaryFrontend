@@ -241,11 +241,10 @@ permalink: /binaryOverflow
             </div>
             <!-- Sidebar -->
             <div class="sidebar">
-                <h3>Binary Topics</h3>
+                <h3>More Binary Content!</h3>
                 <ul>
-                    <li><a href="#">I love binary</a></li>
-                    <li><a href="#">somthing about binary</a></li>
-                    <li><a href="#">i have no clue whatsw supposed to be here</a></li>
+                    <li><a href="http://127.0.0.1:4887/binaryFrontend/binaryGame/">Binary Game</a></li>
+                    <li><a href="http://127.0.0.1:4887/binaryFrontend/quiz">Binary Quiz</a></li>
                 </ul>
             </div>
         </div>
