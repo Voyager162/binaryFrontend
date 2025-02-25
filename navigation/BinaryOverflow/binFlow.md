@@ -293,6 +293,7 @@ permalink: /binaryOverflow
             data.forEach(post => addPostToUI(post));
         } catch (error) {
             console.error("Error fetching posts:", error);
+            document.getElementById("posts-container").textContent = "Hmm... it seems like the server is down, try again later.";
         }
     }
 
