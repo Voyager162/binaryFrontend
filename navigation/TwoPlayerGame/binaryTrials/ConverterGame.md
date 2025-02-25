@@ -49,6 +49,7 @@ permalink: /trialsCompetition/
     </style>
 </head>
 <body>
+    <h3>Convert Decimal Number to Binary:</h3>
     <div id="readyPopup">
         <p>Welcome to the binary converter game! Convert numbers to binary and race to victory!</p>
         <p>Player 1 and Player 2, are you ready?</p>
