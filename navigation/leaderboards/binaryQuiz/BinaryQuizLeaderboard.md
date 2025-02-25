@@ -14,9 +14,7 @@ permalink: /BinaryQuizLeaderboard/
 {% endcomment %}
 
 <html lang="en">
-<head>
-  <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/navigation/leaderboards/binaryQuiz/styling.css">
-</head>
+
 <body>
     <style>
     body {
@@ -46,7 +44,7 @@ permalink: /BinaryQuizLeaderboard/
     }
     .tabcontent {
       display: none;
-      background: rgb(191, 214, 251);
+      background: rgb(191, 214, 251) !important
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -113,3 +111,5 @@ permalink: /BinaryQuizLeaderboard/
   </script>
 </body>
 </html>
+
+
