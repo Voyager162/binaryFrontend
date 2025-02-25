@@ -209,7 +209,7 @@ permalink: /binaryOverflow
             <!-- Main Content -->
             <div class="main-content">
                 <!-- Post Input Box -->
-                 <button id="post-button">Post</button>  <!-- ✅ This was missing -->
+                 <div style="display:none;"> <button id="post-button">Post</button> </div>  <!-- ✅ This was missing -->
                 <div class="post-box" id='jimmeh'></div>
                 <!-- Posts Container -->
                 <div id="posts-container">
