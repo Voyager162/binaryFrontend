@@ -65,7 +65,9 @@ permalink: /binaryOverflow
 }
             /* Main Content */
             .main-content {
-                flex: 4; /* Allows main content to expand */
+                flex: 10; /* Allows main content to expand */
+                min-width: 1000px; /* Prevents sidebar from being too large */
+                max-width: 2000px; /* Ensures it stays small */
                 background: lightcyan;
                 padding:45px;
                 border-radius: 10px;
@@ -79,7 +81,7 @@ permalink: /binaryOverflow
                 background: black;
                 padding: 15px;
                 border-radius: 5px;
-                margin-left: -1200px; /* Adds spacing between main content and sidebar */
+                margin-left: -1400px; /* Adds spacing between main content and sidebar */
                 margin-top: 75px;
             }
             /* Post Box */
@@ -99,10 +101,12 @@ permalink: /binaryOverflow
                 border-radius: 5px;
             }
             .post-box textarea {
-                width: 100%;
+                width: 210%; /* keeps existing width */
+                height: 100px; /* adjust this height to your preference */
                 padding: 10px;
                 border: 1px solid #ddd;
                 border-radius: 5px;
+                resize: vertical; /* Allows users to adjust height manually */
             }
             .post-box button {
                 background: #ff9800;
@@ -171,6 +175,21 @@ permalink: /binaryOverflow
             }
             .sidebar ul li a:hover {
                 color: #ff9800;
+            }
+            /* Delete Button Styling */
+            .delete-btn {
+                background-color: #ff4b4b; /* Soft red */
+                color: lightcyan;
+                border: none;
+                padding: 3px 6px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                transition: background-color 0.3s ease;
+                margin-top: 10px;
+            }
+            .delete-btn:hover {
+                background-color: lightslategrey !important; /* Darker red on hover */
             }
 </style>
 </head>
