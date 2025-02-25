@@ -99,9 +99,11 @@ layout: page
         <a href="{{site.baseurl}}/binaryGame" class="button">
             <img src="{{site.baseurl}}/images/binaryLearningGame/binaryGameLogo.jpg" alt="Binary Game">
         </a>
+        <a href="{{site.baseurl}}/trials" class="button">
+            <img src="{{site.baseurl}}/images/binary/binaryTrialsLogo.jpg" alt="Binary Trials">
+        </a>
         <a href="{{site.baseurl}}/logicgame" class="button">Logic Gates Games</a>
         <a href="{{site.baseurl}}/converter/" class="button">Binary Converter</a>
-        <a href="{{site.baseurl}}/binary_history" class="button">The History of Binary...</a>
         <a href="{{site.baseurl}}/comments" class="button">Comments and Feedback</a>
         <a href="{{site.baseurl}}/leaderboard/" class="button">Leaderboard</a>
         <a href="{{site.baseurl}}/quiz" class="button">Binary Quiz</a>
