@@ -52,9 +52,12 @@ permalink: /quiz
             margin: 5px 0;
         }
         table {
-            width: 100%;
-            margin-top: 30px;
+            width: 200%;
+            margin-top: 100px; /* Space from the top */
+            margin-left: -150px; /* Adjust this value to control how much to shift left */
             border-collapse: collapse;
+            display: table;
+            background-color: #FFFFFF; /* Ensure this line is correct */
         }
         table, th, td {
             border: 1px solid black;
@@ -62,6 +65,24 @@ permalink: /quiz
         th, td {
             padding: 10px;
             text-align: center;
+            background-color: #FFFFFF; /* Ensure cells are white */
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #FFFFFF; /* Make buttons white */
+            color: var(--text-dark); /* Adjust text color for contrast */
+            transition: background-color 0.2s ease, transform 0.1s ease-in-out;
+        }
+        button:hover {
+            transform: scale(1.02);
+        }
+
+        button:active {
+            transform: scale(0.98);
         }
     </style>
 
