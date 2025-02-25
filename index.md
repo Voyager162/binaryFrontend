@@ -99,16 +99,13 @@ layout: page
         <a href="{{site.baseurl}}/binaryGame" class="button">
             <img src="{{site.baseurl}}/images/binaryLearningGame/binaryGameLogo.jpg" alt="Binary Game">
         </a>
-        <a href="{{site.baseurl}}/logicgame" class="button">Logic Gates Games</a>
-        <a href="{{site.baseurl}}/converter/" class="button">Binary Converter</a>
-        <a href="{{site.baseurl}}/binary_history" class="button">The History of Binary...</a>
-        <a href="{{site.baseurl}}/comments" class="button">Comments and Feedback</a>
+        <a href="{{site.baseurl}}/binaryOverflow" class="button">Binary Overflow</a>
        <a href="{{site.baseurl}}/leaderboard" class="button">
             <img src="{{site.baseurl}}/images/leaderboard/leaderboardLogo.png" alt="Leaderboard">
         </a>
         <a href="{{site.baseurl}}/quiz" class="button">
             <img src="{{site.baseurl}}/images/binaryquiz/binaryquiz.png" alt="Binary Quiz">
         </a>
-        <a href="{{site.baseurl}}/navigation/binary-calculator" class="button">Binary Calculator</a>
+        <a href="{{site.baseurl}}/navigation/trials" class="button">Binary Trials</a>
     </div>
 </body>
