@@ -261,9 +261,16 @@ permalink: /binaryOverflow
             if (!response.ok) throw new Error("Failed to fetch posts");
             const data = await response.json();
 
+            console.log("Fetched posts from API:", data); // ✅ Debugging log
+
             const postsContainer = document.getElementById("posts-container");
-            postsContainer.innerHTML = "";
-            data.forEach(post => addPostToUI(post));
+
+            // ✅ Ensure postsContainer exists before clearing it
+            if (postsContainer) {
+                postsContainer.innerHTML = ""; 
+            }
+
+            data.forEach(post => addPostToUI(post)); // ✅ Show fetched posts
 
         } catch (error) {
             console.error("Error fetching posts:", error);
@@ -276,7 +283,6 @@ permalink: /binaryOverflow
         const postTitleInput = document.getElementById("post-title");
         const postContentInput = document.getElementById("post-content");
 
-        // ✅ Define title and content properly before using them
         const title = postTitleInput?.value.trim();
         const content = postContentInput?.value.trim();
 
@@ -305,11 +311,16 @@ permalink: /binaryOverflow
 
             const newPost = await response.json();
             console.log("Post created successfully!", newPost);
+
+            // ✅ Add new post to UI immediately
             addPostToUI(newPost);
 
+            // ✅ Clear input fields
             postTitleInput.value = "";
             postContentInput.value = "";
-            fetchPosts();
+
+            // ✅ Fetch posts again to ensure persistence
+            setTimeout(fetchPosts, 1000); // Small delay to allow API update
 
         } catch (error) {
             console.error("Error posting:", error);
@@ -318,10 +329,22 @@ permalink: /binaryOverflow
     }
 
     function addPostToUI(post) {
+        console.log("Adding post to UI:", post); // ✅ Debugging log
+
+        if (!post || !post.title || !post.content) {
+            console.error("Invalid post data:", post);
+            return;
+        }
+
         const postElement = document.createElement("div");
         postElement.classList.add("post");
 
         postElement.innerHTML = `
+            <div class="vote-section">
+                <button class="vote-btn">⬆</button>
+                <div>0</div>
+                <button class="vote-btn">⬇</button>
+            </div>
             <div class="post-content">
                 <h3 class="post-title">${post.title}</h3>
                 <p>${post.content}</p>
@@ -334,7 +357,8 @@ permalink: /binaryOverflow
             console.error("Posts container not found!");
             return;
         }
-        
+
+        // ✅ Show new post at the top
         postsContainer.prepend(postElement);
     }
 </script>
