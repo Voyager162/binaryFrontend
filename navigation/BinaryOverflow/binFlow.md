@@ -90,7 +90,7 @@ permalink: /binaryOverflow
                 background: lightskyblue;
                 border-radius: 5px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                margin-bottom: 20px;
+                margin-bottom: 10px;
             }
             .post-box input {
                 width: 25%;
@@ -118,7 +118,7 @@ permalink: /binaryOverflow
             .post {
                 display: flex;
                 border-bottom: 1px solid #ddd;
-                padding: 15px 0;
+                padding: 50px 0px;
             }
             .vote-section {
                 text-align: center;
@@ -181,7 +181,7 @@ permalink: /binaryOverflow
          <div class="logo">Binary Overflow</div>
          <div class="nav-links">
             <a href="http://127.0.0.1:4887/binaryFrontend/">Home</a>
-            <a href="#">New Posts</a>
+            <a href="http://127.0.0.1:4887/binaryFrontend/binaryOverflow">New Posts</a>
          </div>
         <!-- <a href="#" class="login-btn">Login</a> -->
     </div>
@@ -190,12 +190,12 @@ permalink: /binaryOverflow
             <!-- Main Content -->
             <div class="main-content">
                 <!-- Post Input Box -->
+                 <button id="post-button">Post</button>  <!-- ✅ This was missing -->
                 <div class="post-box" id='jimmeh'></div>
                 <!-- Posts Container -->
                 <div id="posts-container">
                     <!-- New posts will be added here dynamically -->
                 </div>
-                <button id="post-button">Post</button>  <!-- ✅ This was missing -->
                 <!-- Example Posts -->
                 <div class="post">
                     <div class="vote-section">

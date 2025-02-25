@@ -18,7 +18,7 @@ export function buildPostBox() {
     contentInput.id = "contentInput"
     contentInput.rows = 10
     contentInput.cols = 50
-    contentInput.placeholder = 'body texts'
+    contentInput.placeholder = 'Post Content'
     contentInput.style.resize = 'none'
     // Button that sends information
     const postButton = document.createElement('button')
