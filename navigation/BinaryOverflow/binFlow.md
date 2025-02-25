@@ -191,6 +191,30 @@ permalink: /binaryOverflow
             .delete-btn:hover {
                 background-color: lightslategrey !important; /* Darker red on hover */
             }
+            .edit-title, .edit-content {
+                width: 100%;
+                padding: 5px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+            .edit-content {
+                height: 80px;
+                resize: vertical;
+            }
+            .edit-btn {
+                background-color: #4CAF50;
+                color: white;
+                padding: 6px 12px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                margin-top: 10px;
+                transition: background-color 0.3s ease;
+            }
+            .edit-btn:hover {
+                background-color: #45a049;
+            }
 </style>
 </head>
 
@@ -219,7 +243,7 @@ permalink: /binaryOverflow
                 <div class="post">
                     <div class="vote-section">
                         <button class="vote-btn">⬆</button>
-                        <div></div>
+                        <div>0</div>
                         <button class="vote-btn">⬇</button>
                     </div>
                     <div class="post-content">
@@ -361,4 +385,67 @@ permalink: /binaryOverflow
         const postsContainer = document.getElementById("posts-container");
         postsContainer.prepend(postElement);
     }
+
+  async function editPost(post, postElement) {
+        const postTitleElement = postElement.querySelector(".post-title");
+        const postTextElement = postElement.querySelector(".post-text");
+        const editBtn = postElement.querySelector(".edit-btn");
+
+        const titleInput = document.createElement("input");
+        titleInput.type = "text";
+        titleInput.value = post.title;
+        titleInput.classList.add("edit-title");
+
+        const contentTextarea = document.createElement("textarea");
+        contentTextarea.value = post.content;
+        contentTextarea.classList.add("edit-content");
+
+        postTitleElement.replaceWith(titleInput);
+        postTextElement.replaceWith(contentTextarea);
+        editBtn.textContent = "Save";
+
+        editBtn.onclick = async () => {
+            const updatedTitle = titleInput.value.trim();
+            const updatedContent = contentTextarea.value.trim();
+
+            if (!updatedTitle || !updatedContent) {
+                alert("⚠️ Title and content cannot be empty!");
+                return;
+            }
+
+            const options = {
+                method: "PUT",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: post.id, title: updatedTitle, content: updatedContent }),
+            };
+
+            try {
+                const response = await fetch(`${pythonURI}/api/binaryOverflow/post`, options);
+                if (!response.ok) {
+                    throw new Error(await response.text());
+                }
+
+                const updatedPost = await response.json();
+
+                const newTitle = document.createElement("h3");
+                newTitle.classList.add("post-title");
+                newTitle.textContent = updatedPost.title;
+
+                const newText = document.createElement("p");
+                newText.classList.add("post-text");
+                newText.textContent = updatedPost.content;
+
+                titleInput.replaceWith(newTitle);
+                contentTextarea.replaceWith(newText);
+
+                editBtn.textContent = "Edit";
+                editBtn.onclick = () => editPost(updatedPost, postElement);
+            } catch (error) {
+                console.error("Error updating post:", error);
+                alert("⚠️ Failed to update post.");
+            }
+        };
+    }
+
 </script>
