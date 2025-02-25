@@ -219,26 +219,15 @@ permalink: /binaryOverflow
                 <div class="post">
                     <div class="vote-section">
                         <button class="vote-btn">⬆</button>
-                        <div>-877</div>
+                        <div></div>
                         <button class="vote-btn">⬇</button>
                     </div>
                     <div class="post-content">
-                        <div class="post-title">code code code or smth idk</div>
-                        <div class="post-meta">Posted by <strong>Mortie</strong> | 2 hours ago</div>
+                        <div class="post-title"><h2>Binary Overflow Page</h2></div>
+                        <div> <p> Weclome to the first version of our Binary Overflow page! Have a look around and also check out the other features found on our page.</p>
+                        <div class="post-meta">Posted by <strong>Lars</strong></div>
                     </div>
                 </div>
-                <div class="post">
-                    <div class="vote-section">
-                        <button class="vote-btn">⬆</button>
-                        <div>-4</div>
-                        <button class="vote-btn">⬇</button>
-                    </div>
-                    <div class="post-content">
-                        <div class="post-title">join my film class trust its fire</div>
-                        <div class="post-meta">Posted by <strong>Brownie</strong> | 4 hours ago</div>
-                    </div>
-                </div>
-            </div>
             <!-- Sidebar -->
             <div class="sidebar">
                 <h3>More Binary Content!</h3>
