@@ -109,7 +109,7 @@ permalink: /BinaryQuizLeaderboard/
       loadAndDisplayScores(level); // Load scores for the selected level
     }
 
-    document.getElementById("defaultOpen").click();
+    document.getElementById("defaultOpen");
   </script>
 </body>
 </html>

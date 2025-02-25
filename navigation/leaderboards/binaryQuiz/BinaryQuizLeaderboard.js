@@ -6,10 +6,10 @@ function sortScoresDescending(scores) {
 
 async function fetchScores() {
   try {
-    const scoresResponse = await fetch(`${pythonURI}/api/quizgrading`, fetchOptions);
+    const scoresResponse = await fetch(`${pythonURI}/api/binaryLearningGameScores`, fetchOptions);
     if (!scoresResponse.ok) throw new Error('Failed to fetch scores');
     const scores = await scoresResponse.json();
-    return sortScoresDescending(scores);
+    return sortScoresDescending(scores); // Sort scores in descending order by default
   } catch (error) {
     console.error('Error fetching scores:', error);
     return [];
