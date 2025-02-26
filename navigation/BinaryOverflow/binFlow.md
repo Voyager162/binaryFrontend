@@ -420,7 +420,7 @@ function addPostToUI(post) {
     downvoteBtn.onclick = () => voteOnPost(post.id, -1, voteCountElement);
 
     const postsContainer = document.getElementById("posts-container");
-    postsContainer.prepend(postElement); // 👈 Newest posts now appear at the top!
+    postsContainer.prepend(postElement); // its prepend not append bozo
 }
 
   async function editPost(post, postElement) {
