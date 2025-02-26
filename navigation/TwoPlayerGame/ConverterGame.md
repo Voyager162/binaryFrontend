@@ -37,7 +37,7 @@ permalink: /trialsCompetition/
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: red;
+            background: linear-gradient(150deg, #0E3348, #247994, #147EA0, #0F547B);
             color: white;
             display: flex;
             justify-content: center;
