@@ -12,7 +12,7 @@ permalink: /trialsPartners/
     <title>Binary History - Partners</title>
     <style>
         body {
-            background: linear-gradient(135deg, #964b00, #ff8c00, #ffa756); /* 180deg for top-to-bottom gradient */
+            background: linear-gradient(150deg, #0E3348, #247994, #147EA0, #0F547B); /* 180deg for top-to-bottom gradient*/
             color: #ffffff;
             font-family: Arial, sans-serif;
             text-align: center;
@@ -42,7 +42,7 @@ permalink: /trialsPartners/
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #ff8c00; /* Solid background */
+            background: linear-gradient(150deg, #0E3348, #247994, #147EA0, #0F547B);
             color: white;
             display: flex;
             justify-content: center;

@@ -12,7 +12,7 @@ permalink: /binary_history/
     <title>Binary History</title>
     <style>
         body {
-            background: linear-gradient(135deg, #964b00, #ff8c00, #ffa756); /* 180deg for top-to-bottom gradient */
+            background: linear-gradient(150deg, #0E3348, #247994, #147EA0, #0F547B);
             color: #ffffff;
             font-family: Arial, sans-serif;
             min-height: 100vh;
