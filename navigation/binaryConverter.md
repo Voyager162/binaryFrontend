@@ -11,7 +11,7 @@ permalink: /converter/
     <title>Binary Converter</title>
     <style>
         body {
-            background: linear-gradient(135deg, red, darkred);
+           background: linear-gradient(150deg, #0E3348, #247994, #147EA0, #0F547B);
             color: white;
             font-family: Arial, sans-serif;
             min-height: 100vh;

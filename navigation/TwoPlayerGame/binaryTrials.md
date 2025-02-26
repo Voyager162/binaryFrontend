@@ -12,7 +12,7 @@ permalink: /trials/
     <title>Binary Trials</title>
     <style>
         body {
-            background: linear-gradient(135deg, #ff8c00, orange, red); /* 180deg for top-to-bottom gradient */
+            background: linear-gradient(150deg, #0E3348, #247994, #147EA0, #0F547B);
             color: #ffffff;
             font-family: Arial, sans-serif;
             text-align: center;
