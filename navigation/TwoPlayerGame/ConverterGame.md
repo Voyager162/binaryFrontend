@@ -46,6 +46,30 @@ permalink: /trialsCompetition/
             font-size: 24px;
             z-index: 999;
         }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .regularButton {
+            all: unset; /* Removes all default styles */
+            background-color: white !important;
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            font-weight: bold;
+            color: black !important;
+        }
+        .regularButton:hover {
+            background-color: gray !important; /* Light gray on hover */
+            transform: scale(1.05);
+        }
+        .regularButton:active {
+            background-color: darkgrey !important; /* Slightly darker gray when clicked */
+            transform: scale(0.95); /* Slight scale-down effect on click */
+        }
     </style>
 </head>
 <body>
@@ -55,6 +79,8 @@ permalink: /trialsCompetition/
         <p>Player 1 and Player 2, are you ready?</p>
         <p>Press any key to confirm!</p>
         <p id="readyStatus">Waiting for both players...</p>
+        <p></p>
+        <button class="regularButton"><a href="{{site.baseurl}}/trials">Click here to go back to the binary trials directory.</a></button>
     </div>
     <h2 id="question">Loading question...</h2>
     <input type="text" id="answer" placeholder="Enter your answer">
@@ -64,6 +90,9 @@ permalink: /trialsCompetition/
         <div id="player2" class="player"></div>
     </div>
     <h3 id="turnInfo">Player 1's Turn</h3>
+    <button class="regularButton"><a href="{{site.baseurl}}/converter">Click here to add your own questions to the game, and look at the current questions and their answers.</a></button>
+    <p></p>
+    <button class="regularButton"><a href="{{site.baseurl}}/trials">Click here to go back to the binary trials directory.</a></button>
     <script type="module">
         import { pythonURI } from '../assets/js/api/config.js';
         let player1Pos = 20, player2Pos = 20, currentPlayer = 1, currentQuestionIndex = 0, questions = [];
