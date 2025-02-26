@@ -19,7 +19,7 @@ permalink: /trialsPartners/
             overflow-y: auto;
         }
         #gameBoard {
-            width: 600px;
+            width: 800px;
             height: 200px;
             border: 6px solid white;
             margin: 20px auto;
@@ -34,8 +34,8 @@ permalink: /trialsPartners/
             transform: translateY(-50%);
             border-radius: 50%;
         }
-        #player1 { background-color: red; left: 130px; }
-        #player2 { background-color: blue; left: 430px; }
+        #player1 { background-color: red; left: 20px; }
+        #player2 { background-color: blue; left: 740px; }
         #readyPopup {
             position: fixed;
             top: 0;
@@ -82,7 +82,7 @@ permalink: /trialsPartners/
 </head>
 <body>
     <div id="readyPopup">
-        <p>Welcome to the binary history game! You will be given an event in the history of binary, and have to guess what year the event happened!</p>
+        <p>Welcome to the binary history game! You will be given an event in the history of binary, and have to guess what decade the event happened!</p>
         <p>Player 1 and Player 2, are you ready?</p>
         <p>Press any key to confirm!</p>
         <p id="readyStatus">Waiting for both players...</p>
@@ -91,9 +91,11 @@ permalink: /trialsPartners/
     </div>
     <div id="questionBox">
         <p></p>
-        <p id="question">Loading question...</p>
+        <h3 id="question">Loading question...</h3>
         <p></p>
     </div>
+    <p>Enter the decade in which the event happened (format: xxx0)</p>
+    <p></p>
     <input type="text" id="answer">
     <button id="submitAnswer">Submit</button>
     <div id="gameBoard">
@@ -111,8 +113,8 @@ permalink: /trialsPartners/
         import { pythonURI, fetchOptions } from '../assets/js/api/config.js';
         let timeElapsed = 0;
         let stopwatchInterval;
-        let player1Pos = 130;
-        let player2Pos = 430;
+        let player1Pos = 20;
+        let player2Pos = 740;
         let currentPlayer = 1;
         const player1 = document.getElementById("player1");
         const player2 = document.getElementById("player2");
@@ -132,6 +134,15 @@ permalink: /trialsPartners/
                 timeElapsed++;
                 document.getElementById("stopwatch").textContent = `Time: ${timeElapsed} seconds`;
             }, 1000);
+        }
+        function resetGame() {
+            player1Pos = 20;
+            player2Pos = 740;
+            player1.style.left = player1Pos + "px";
+            player2.style.left = player2Pos + "px";
+            timeElapsed = 0;
+            document.getElementById("stopwatch").textContent = `Time: 0 seconds`;
+            startMovement();
         }
         function stopStopwatch() {
             clearInterval(stopwatchInterval);
@@ -175,10 +186,7 @@ permalink: /trialsPartners/
                 player2.style.left = player2Pos + "px";
                 if (player1Pos + 28 >= player2Pos) {
                     stopStopwatch(); // Stop the stopwatch if players collide
-                    player1Pos = 130;
-                    player2Pos = 430;
-                    player1.style.left = player1Pos + "px";
-                    player2.style.left = player2Pos + "px";
+                    resetGame(); // Reset the game for the next round
                 }
             }, 100);
         }
