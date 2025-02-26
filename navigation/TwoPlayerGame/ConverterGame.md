@@ -10,7 +10,7 @@ permalink: /trialsCompetition/
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            background: linear-gradient(135deg,rgb(255, 68, 68),rgb(255, 0, 0),rgb(181, 0, 0));
+            background: linear-gradient(150deg, #0E3348, #247994, #147EA0, #0F547B);
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
