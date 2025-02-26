@@ -282,20 +282,25 @@ permalink: /binaryOverflow
     });
 
     async function fetchPosts() {
-        try {
-            const response = await fetch(`${pythonURI}/api/binaryOverflow/home`, fetchOptions);
-            if (!response.ok) throw new Error("Failed to fetch posts");
+    try {
+        const response = await fetch(`${pythonURI}/api/binaryOverflow/home`, fetchOptions);
+        if (!response.ok) throw new Error("Failed to fetch posts");
 
-            const data = await response.json();
-            const postsContainer = document.getElementById("posts-container");
-            postsContainer.innerHTML = "";
+        const data = await response.json();
+        const postsContainer = document.getElementById("posts-container");
 
-            data.forEach(post => addPostToUI(post));
-        } catch (error) {
-            console.error("Error fetching posts:", error);
-            document.getElementById("posts-container").textContent = "Hmm... it seems like the server is down, try again later.";
+        if (!postsContainer) {
+            console.error("Posts container not found!");
+            return;
         }
+
+        postsContainer.innerHTML = ""; // Only clearing posts, not input box
+
+        data.forEach(post => addPostToUI(post));
+    } catch (error) {
+        console.error("Error fetching posts:", error);
     }
+}
 
     async function createPost() {
         const postTitleInput = document.getElementById("post-title");
@@ -359,34 +364,64 @@ permalink: /binaryOverflow
         }
     }
 
-    function addPostToUI(post) {
-        if (!post || !post.title || !post.content) {
-            console.error("Invalid post data:", post);
-            return;
+   async function voteOnPost(postId, voteType, voteCountElement) {
+    const options = {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ post_id: postId, vote: voteType })
+    };
+
+    try {
+        const response = await fetch(`${pythonURI}/api/binaryOverflow/vote`, options);
+        if (!response.ok) {
+            throw new Error(await response.text());
         }
 
-        const postElement = document.createElement("div");
-        postElement.classList.add("post");
-        postElement.innerHTML = `
-            <div class="vote-section">
-                <button class="vote-btn">⬆</button>
-                <div>0</div>
-                <button class="vote-btn">⬇</button>
-            </div>
-            <div class="post-content">
-                <h3 class="post-title">${post.title}</h3>
-                <p>${post.content}</p>
-                <div class="post-meta">Posted by <strong>${post.author || "Unknown"}</strong></div>
-                <button class="delete-btn">Delete</button>
-            </div>
-        `;
-
-        const deleteBtn = postElement.querySelector(".delete-btn");
-        deleteBtn.onclick = () => deletePost(post.id, postElement);
-
-        const postsContainer = document.getElementById("posts-container");
-        postsContainer.prepend(postElement);
+        const updatedPost = await response.json();
+        voteCountElement.textContent = updatedPost.votes || 0;
+    } catch (error) {
+        console.error("Error voting on post:", error);
+        alert("⚠️ Failed to submit vote.");
     }
+}
+
+function addPostToUI(post) {
+    if (!post || !post.title || !post.content) {
+        console.error("Invalid post data:", post);
+        return;
+    }
+
+    const postElement = document.createElement("div");
+    postElement.classList.add("post");
+
+    postElement.innerHTML = `
+        <div class="vote-section">
+            <button class="vote-btn upvote-btn">⬆</button>
+            <div class="vote-count">${post.votes || 0}</div>
+            <button class="vote-btn downvote-btn">⬇</button>
+        </div>
+        <div class="post-content">
+            <h3 class="post-title">${post.title}</h3>
+            <p>${post.content}</p>
+            <div class="post-meta">Posted by <strong>${post.author || "Unknown"}</strong></div>
+            <button class="delete-btn">Delete</button>
+        </div>
+    `;
+
+    const deleteBtn = postElement.querySelector(".delete-btn");
+    deleteBtn.onclick = () => deletePost(post.id, postElement);
+
+    const voteCountElement = postElement.querySelector(".vote-count");
+    const upvoteBtn = postElement.querySelector(".upvote-btn");
+    const downvoteBtn = postElement.querySelector(".downvote-btn");
+
+    upvoteBtn.onclick = () => voteOnPost(post.id, 1, voteCountElement);
+    downvoteBtn.onclick = () => voteOnPost(post.id, -1, voteCountElement);
+
+    const postsContainer = document.getElementById("posts-container");
+    postsContainer.appendChild(postElement);
+}
 
   async function editPost(post, postElement) {
         const postTitleElement = postElement.querySelector(".post-title");
