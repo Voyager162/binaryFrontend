@@ -303,40 +303,49 @@ permalink: /binaryOverflow
 }
 
     async function createPost() {
-        const postTitleInput = document.getElementById("post-title");
-        const postContentInput = document.getElementById("post-content");
+    const postTitleInput = document.getElementById("post-title");
+    const postContentInput = document.getElementById("post-content");
 
-        const title = postTitleInput?.value.trim();
-        const content = postContentInput?.value.trim();
+    const title = postTitleInput?.value.trim();
+    const content = postContentInput?.value.trim();
 
-        if (!title || !content) {
-            alert("⚠️ Title and content cannot be empty!");
+    if (!title || !content) {
+        alert("⚠️ Title and content cannot be empty!");
+        return;
+    }
+
+    const options = { 
+        ...fetchOptions,
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, content }) 
+    };
+
+    try {
+        const response = await fetch(`${pythonURI}/api/binaryOverflow/post`, options);
+        if (!response.ok) throw new Error(await response.text());
+
+        const newPost = await response.json();
+
+        // ✅ Ensure the returned post contains a valid ID before adding to UI
+        if (!newPost.id) {
+            console.error("Post was not properly saved:", newPost);
+            alert("⚠️ Failed to create post. Please try again.");
             return;
         }
 
-        const options = { 
-            ...fetchOptions,
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title, content }) 
-        };
+        addPostToUI(newPost);
 
-        try {
-            const response = await fetch(`${pythonURI}/api/binaryOverflow/post`, options);
-            if (!response.ok) throw new Error(await response.text());
+        postTitleInput.value = "";
+        postContentInput.value = "";
 
-            const newPost = await response.json();
-            addPostToUI(newPost);
-
-            postTitleInput.value = "";
-            postContentInput.value = "";
-
-            setTimeout(fetchPosts, 1000);
-        } catch (error) {
-            console.error("Error posting:", error);
-            alert("⚠️ Failed to create post: " + error.message);
-        }
+        // ✅ Fetch posts again to ensure synchronization with backend
+        setTimeout(fetchPosts, 1000);
+    } catch (error) {
+        console.error("Error posting:", error);
+        alert("⚠️ Failed to create post: " + error.message);
     }
+}
 
     async function deletePost(postId, postElement) {
         if (!confirm('Are you sure you want to delete this post?')) return;
