@@ -102,7 +102,7 @@ permalink: /trialsCompetition/
     </div>
     <h2 id="question">Loading question...</h2>
     <input type="text" id="answer" placeholder="Enter your answer">
-    <button onclick="submitAnswer()">Submit</button>
+    <button id="submitBtn">Submit</button>
     <div id="gameBoard">
         <div id="player1" class="player"></div>
         <div id="player2" class="player"></div>
@@ -140,42 +140,54 @@ permalink: /trialsCompetition/
                 setTimeout(checkReady, 1000);
             }
         });
- async function fetchQuestions() { 
-            try {
-                const response = await fetch(`${pythonURI}/api/binary-converter`);
-                if (!response.ok) throw new Error("Network response failed");
-                const data = await response.json();
-                questions = data.map(q => ({ question: q.decimal, answer: q.binary }));
-                if (questions.length) updateQuestion();
-                else document.getElementById("question").textContent = "No questions available.";
-            } catch (error) {
-                console.error("Error fetching questions:", error);
-                document.getElementById("question").textContent = "Server error, try again later.";
-            }
-        }
+document.getElementById("yesButton").addEventListener("click", () => {
+            document.getElementById("playAgainPopup").classList.add("hidden");
+            resetGame();
+        });
+document.getElementById("noButton").addEventListener("click", () => {
+            window.location.href = "{{site.baseurl}}/trials";
+        });
+document.getElementById("submitBtn").addEventListener("click", submitAnswer);
+async function fetchQuestions() {
+    try {
+        const response = await fetch(`${pythonURI}/api/binary-converter`);
+        if (!response.ok) throw new Error("Network response failed");
+        const data = await response.json();
+        questions = data.map(q => ({ question: q.decimal, answer: q.binary }));
+        // Randomize questions
+        questions = questions.sort(() => Math.random() - 0.5);
+        if (questions.length) updateQuestion();
+        else document.getElementById("question").textContent = "No questions available.";
+    } catch (error) {
+        console.error("Error fetching questions:", error);
+        document.getElementById("question").textContent = "Server error, try again later.";
+    }
+}
  function updateQuestion() {
             document.getElementById("question").textContent = questions[currentQuestionIndex].question;
             document.getElementById("turnInfo").textContent = `Player ${currentPlayer}'s Turn`;
         }
- window.submitAnswer = function () {
-            const answer = document.getElementById("answer").value.trim();
-            if (answer === questions[currentQuestionIndex].answer) {
-                alert(`Correct! Player ${currentPlayer} moves forward.`);
-                currentPlayer === 1 ? player1Pos += 600 : player2Pos += 600;
-                currentPlayer === 1 ? player1.style.left = player1Pos + "px" : player2.style.left = player2Pos + "px";
-            } else {
-                alert(`Incorrect! The correct answer is ${correctAnswer}.`);
-            }
-            if (player1Pos >= 550 || player2Pos >= 550) {
-                alert(`${player1Pos >= 550 ? 'Player 1' : 'Player 2'} wins!`);
-                resetGame();
-                return;
-            }
-            currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
-            document.getElementById("answer").value = '';
-            currentPlayer = currentPlayer === 1 ? 2 : 1;
-            updateQuestion();
-        };
+function submitAnswer() {
+    const answer = document.getElementById("answer").value.trim();
+    const correctAnswer = questions[currentQuestionIndex].answer;
+    if (answer === correctAnswer) {
+        alert(`Correct! Player ${currentPlayer} moves forward.`);
+        currentPlayer === 1 ? player1Pos += 150 : player2Pos += 150;
+        currentPlayer === 1 ? player1.style.left = player1Pos + "px" : player2.style.left = player2Pos + "px";
+    } else {
+        alert(`Incorrect! The correct answer is ${correctAnswer}.`);
+    }
+    if (player1Pos >= 550 || player2Pos >= 550) {
+        alert(`${player1Pos >= 550 ? 'Player 1' : 'Player 2'} wins!`);
+        document.getElementById("playAgainPopup").classList.remove("hidden");
+        return;
+    }
+    currentQuestionIndex = Math.floor(Math.random() * questions.length); // Randomize questions
+    document.getElementById("answer").value = '';
+    currentPlayer = currentPlayer === 1 ? 2 : 1;
+    updateQuestion();
+}
+window.submitAnswer = submitAnswer;
 function resetGame() {
             player1Pos = 20; player2Pos = 20;
             player1.style.left = player1Pos + "px";
