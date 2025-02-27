@@ -375,7 +375,7 @@ permalink: /binaryOverflow
 
    async function voteOnPost(postId, voteType, voteCountElement) {
     const options = {
-        method: "POST",
+        method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ post_id: postId, vote: voteType })
