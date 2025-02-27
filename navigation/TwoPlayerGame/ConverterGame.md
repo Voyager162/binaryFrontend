@@ -46,6 +46,24 @@ permalink: /trialsCompetition/
             font-size: 24px;
             z-index: 999;
         }
+        #playAgainPopup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(150deg, #0E3348, #247994, #147EA0, #0F547B);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 24px;
+            z-index: 999;
+        }
+        #playAgainPopup.hidden {
+            display: none;
+        }
         button {
             padding: 10px 20px;
             font-size: 16px;
@@ -93,6 +111,13 @@ permalink: /trialsCompetition/
     <button class="regularButton"><a href="{{site.baseurl}}/converter">Click here to add your own questions to the game, and look at the current questions and their answers.</a></button>
     <p></p>
     <button class="regularButton"><a href="{{site.baseurl}}/trials">Click here to go back to the binary trials directory.</a></button>
+        <div id="playAgainPopup" class="hidden">
+        <p>Do you want to play again?</p>
+        <p></p>
+        <button id="yesButton" class="regularButton">Yes</button>
+        <p></p>
+        <button id="noButton" class="regularButton">No</button>
+    </div>
     <script type="module">
         import { pythonURI } from '../assets/js/api/config.js';
         let player1Pos = 20, player2Pos = 20, currentPlayer = 1, currentQuestionIndex = 0, questions = [];
@@ -136,10 +161,10 @@ permalink: /trialsCompetition/
             const answer = document.getElementById("answer").value.trim();
             if (answer === questions[currentQuestionIndex].answer) {
                 alert(`Correct! Player ${currentPlayer} moves forward.`);
-                currentPlayer === 1 ? player1Pos += 30 : player2Pos += 30;
+                currentPlayer === 1 ? player1Pos += 600 : player2Pos += 600;
                 currentPlayer === 1 ? player1.style.left = player1Pos + "px" : player2.style.left = player2Pos + "px";
             } else {
-                alert("Incorrect! Try again.");
+                alert(`Incorrect! The correct answer is ${correctAnswer}.`);
             }
             if (player1Pos >= 550 || player2Pos >= 550) {
                 alert(`${player1Pos >= 550 ? 'Player 1' : 'Player 2'} wins!`);
@@ -157,6 +182,7 @@ function resetGame() {
             player2.style.left = player2Pos + "px";
             currentPlayer = 1; currentQuestionIndex = 0;
             updateQuestion();
+            document.getElementById("playAgainPopup").classList.remove("hidden");
         }
     </script>
 </body>
