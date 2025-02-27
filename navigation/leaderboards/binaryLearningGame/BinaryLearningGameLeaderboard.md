@@ -4,6 +4,19 @@ title: Binary Learning Game Leaderboard
 permalink: /BinaryLearningGameLeaderboard/
 ---
 
+
+<style>
+            /* General Styling */
+        body {
+                background: linear-gradient(150deg, #0E3348, #247994, #147EA0, #0F547B
+);
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #F6F6F6;
+            }
+</style>
+
 {% comment %}
 ```html
 {% endcomment %}
@@ -26,7 +39,7 @@ permalink: /BinaryLearningGameLeaderboard/
     }
     .tabs {
       margin-bottom: 20px;
-      background-color: rgb(78, 103, 144);
+      background-color: rgb(48, 68, 101);
       padding: 10px 0;
       border-radius: 10px;
       text-align: center;

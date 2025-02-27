@@ -4,6 +4,17 @@ title: Binary Quiz Leaderboard
 permalink: /BinaryQuizLeaderboard/
 ---
 
+<style>
+            /* General Styling */
+        body {
+                background: linear-gradient(150deg, #0E3348, #247994, #147EA0, #0F547B
+);
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #F6F6F6;
+            }
+</style>
 
 <script type="module" src="{{site.baseurl}}/navigation/leaderboards/binaryQuiz/BinaryQuizLeaderboard.js"></script>
 <script type="module" src="{{site.baseurl}}/assets/js/api/config.js"></script>
@@ -66,7 +77,7 @@ permalink: /BinaryQuizLeaderboard/
       text-align: left;
     }
     th {
-      background-color: rgb(78, 103, 144) !important;
+      background-color: rgb(48, 68, 101) !important;
       color: white;
       text-transform: uppercase;
     }
