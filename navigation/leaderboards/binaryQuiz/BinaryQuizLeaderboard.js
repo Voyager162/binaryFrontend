@@ -7,30 +7,39 @@ function sortScoresDescending(scores) {
 
 async function fetchScores() {
     try {
-      const scoresResponse = await fetch(`${pythonURI}/api/quizgrading`, fetchOptions);
-      if (!scoresResponse.ok) throw new Error('Failed to fetch scores');
-      
-      const scores = await scoresResponse.json();
-      console.log('Raw API response:', scores); // Debug: Log the complete response
-      
-      // Update the field names to match the API response
-      const formattedScores = scores.map(score => ({
-        username: score.attempt, // Using attempt field for username
-        user_score: score.quizgrade // Using quizgrade field for score
-      }));
-      
-      console.log('Formatted scores:', formattedScores); // Debug: Log the formatted data
-      
-      return sortScoresDescending(formattedScores);
+        const scoresResponse = await fetch(`${pythonURI}/api/quizgrading`, fetchOptions);
+        if (!scoresResponse.ok) throw new Error('Failed to fetch scores');
+        
+        const scores = await scoresResponse.json();
+        console.log('Raw API response:', scores);
+        
+        // Get the current user's token and decode it
+        const token = localStorage.getItem('jwt');
+        let currentUsername = '';
+        if (token) {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const payload = JSON.parse(atob(base64));
+            currentUsername = payload.username || payload.user; // Try both possible fields
+            console.log('Token payload:', payload);
+        }
+        
+        // Format the scores with the correct data
+        const formattedScores = scores.map(score => ({
+            username: currentUsername, // Use the logged-in username
+            user_score: score.quizgrade // Use the quiz grade for score
+        }));
+        
+        console.log('Formatted scores:', formattedScores);
+        
+        return sortScoresDescending(formattedScores);
     } catch (error) {
-      console.error('Error fetching scores:', error);
-      return [];
+        console.error('Error fetching scores:', error);
+        return [];
     }
-}  
+}
 
-  function displayScores(scores, tableId) {
-    console.log('Displaying scores:', scores); // Debug: Log the scores
-    
+function displayScores(scores, tableId) {
     const table = document.getElementById(tableId);
     if (!table) {
         console.error(`Table with ID '${tableId}' not found`);
@@ -50,29 +59,26 @@ async function fetchScores() {
         return;
     }
 
-    scores.forEach((score, index) => {
-        console.log(`Creating row ${index}:`, score); // Debug: Log each score as it's processed
+    scores.forEach((score) => {
         const row = tableBody.insertRow();
         const usernameCell = row.insertCell(0);
         const scoreCell = row.insertCell(1);
         
-        // Add null checks
-        usernameCell.textContent = score.username || 'Unknown';
-        scoreCell.textContent = score.user_score ?? 'N/A';
+        usernameCell.textContent = score.username || 'Anonymous';
+        scoreCell.textContent = score.user_score || '0';
     });
-  }
+}
 
-  async function loadAndDisplayScores() {
-    const scores = await fetchScores();
-    if (scores && scores.length > 0) {
-      displayScores(scores, 'Leaderboard'); // Use a single leaderboard table
-    } else {
-      console.log('No scores available'); // Debug: Log if no scores are found
-      const tableBody = document.getElementById('Leaderboard').getElementsByTagName('tbody')[0];
-      tableBody.innerHTML = '<tr><td colspan="2">No scores available</td></tr>'; // Show a message in the table
-    }
+async function loadAndDisplayScores() {
+  const scores = await fetchScores();
+  if (scores && scores.length > 0) {
+    displayScores(scores, 'Leaderboard'); // Use a single leaderboard table
+  } else {
+    console.log('No scores available'); // Debug: Log if no scores are found
+    const tableBody = document.getElementById('Leaderboard').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = '<tr><td colspan="2">No scores available</td></tr>'; // Show a message in the table
   }
-  
+}
 
 // Run when the DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
