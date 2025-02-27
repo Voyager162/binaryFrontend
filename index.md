@@ -99,7 +99,7 @@ layout: page
         <a href="{{site.baseurl}}/binaryGame" class="button">
             <img src="{{site.baseurl}}/images/binaryLearningGame/binaryGameLogo.jpg" alt="Binary Game">
         </a>
-        <a href="{{site.baseurl}}/binaryOverlow" class="button">
+        <a href="{{site.baseurl}}/binaryOverflow" class="button">
             <img src="{{site.baseurl}}/images/binaryOverflow/binaryOverflowLogo.png" alt="Binary Overflow">
         </a>
        <a href="{{site.baseurl}}/leaderboard" class="button">
