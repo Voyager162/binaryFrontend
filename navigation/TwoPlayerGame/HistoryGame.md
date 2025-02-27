@@ -156,8 +156,8 @@ permalink: /trialsPartners/
                 alert("Questions are still loading. Please wait.");
                 return;
             }
-            const answer = document.getElementById("answer").value.trim();
-            const correctAnswer = questions[currentQuestionIndex].answer;
+            const answer = document.getElementById("answer").value.trim().toLowerCase();
+            const correctAnswer = questions[currentQuestionIndex].answer.trim().toLowerCase();
             if (answer === correctAnswer) {
                 alert("Correct! Moving backward.");
                 if (currentPlayer === 1) {
@@ -214,10 +214,10 @@ permalink: /trialsPartners/
                     // Convert to questions array
                     questions = data.map(event => ({
                         question: event.description,
-                        answer: event.year.toString()
+                        answer: event.year.toString().trim().toLowerCase()
                     }));
                     if (questions.length > 0) {
-                        questions = questions.sort(() => Math.random() - 0.5); // Randomize order
+                        questions = questions.sort(() => Math.random() - 0.5); //Randomize order
                         updateQuestion(); // Start the game once questions are loaded
                     } else {
                         document.getElementById("question").textContent = "No questions available.";
