@@ -12,7 +12,7 @@ permalink: /binary_history/
     <title>Binary History</title>
     <style>
         body {
-            background: linear-gradient(135deg, #964b00, #ff8c00, #ffa756); /* 180deg for top-to-bottom gradient */
+            background: linear-gradient(150deg, #0E3348, #247994, #147EA0, #0F547B);
             color: #ffffff;
             font-family: Arial, sans-serif;
             min-height: 100vh;
@@ -73,11 +73,11 @@ permalink: /binary_history/
             color: black !important;
         }
         .regularButton:hover {
-            background-color: lightgray !important; /* Light gray on hover */
+            background-color: gray !important; /* Light gray on hover */
             transform: scale(1.05);
         }
         .regularButton:active {
-            background-color: grey !important; /* Slightly darker gray when clicked */
+            background-color: darkgrey !important; /* Slightly darker gray when clicked */
             transform: scale(0.95); /* Slight scale-down effect on click */
         }
     </style>
@@ -95,6 +95,8 @@ permalink: /binary_history/
 <button class="regularButton" onclick="addEvent()">Submit Event</button>
 <p></p>
 <button class="regularButton"><a href="{{site.baseurl}}/binary_history/blog">Check out my Blog!</a></button>
+<p></p>
+<button class="regularButton"><a href="{{site.baseurl}}/trialsPartners">Back to Game</a></button>
 
 <script type="module" defer>
     import { pythonURI, fetchOptions } from '../assets/js/api/config.js';
