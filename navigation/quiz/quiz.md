@@ -330,9 +330,37 @@ async function loadAttempts() {
     const quizResults = await quizGrading.json();
     console.log(quizResults)
 
-    // Finds table body and clears existing rows, then replaces it with data
-    const tableBody = document.getElementById('attemptsTable');
-    tableBody.innerHTML = ''; // Clear existing rows
+    // Get the table and create thead and tbody if they don't exist
+    const table = document.getElementById('attemptsTable');
+    let thead = table.querySelector('thead');
+    let tbody = table.querySelector('tbody');
+
+    // Create thead if it doesn't exist
+    if (!thead) {
+        thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        const headers = ['ID', 'Username', 'Quiz Grade', 'Attempt Date', 'Actions'];
+        
+        headers.forEach(headerText => {
+            const th = document.createElement('th');
+            th.textContent = headerText;
+            headerRow.appendChild(th);
+        });
+        
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+    }
+
+    // Create tbody if it doesn't exist
+    if (!tbody) {
+        tbody = document.createElement('tbody');
+        table.appendChild(tbody);
+    }
+
+    // Clear existing rows in tbody
+    tbody.innerHTML = '';
+
+    // Add data rows
     quizResults.forEach(attempt => {
         const row = document.createElement('tr');
         const idCell = document.createElement('td')
@@ -362,7 +390,7 @@ async function loadAttempts() {
         row.append(quizgradeCell);
         row.append(attemptCell);
         row.append(actionCell);
-        tableBody.append(row);
+        tbody.append(row);
     });
 }
 
