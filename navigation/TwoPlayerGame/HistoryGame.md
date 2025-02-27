@@ -54,6 +54,24 @@ permalink: /trialsPartners/
         #readyPopup.hidden {
             display: none;
         }
+        #playAgainPopup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(150deg, #0E3348, #247994, #147EA0, #0F547B);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 24px;
+            z-index: 999;
+        }
+        #playAgainPopup.hidden {
+            display: none;
+        }
         button {
             padding: 10px 20px;
             font-size: 16px;
@@ -109,6 +127,13 @@ permalink: /trialsPartners/
     <button class="regularButton"><a href="{{site.baseurl}}/binary_history">Click here to add your own questions to the game, and look at the current questions and their answers.</a></button>
     <p></p>
     <button class="regularButton"><a href="{{site.baseurl}}/trials">Click here to go back to the binary trials directory.</a></button>
+    <div id="playAgainPopup" class="hidden">
+        <p>Do you want to play again?</p>
+        <p></p>
+        <button id="yesButton" class="regularButton">Yes</button>
+        <p></p>
+        <button id="noButton" class="regularButton">No</button>
+    </div>
     <script type="module">
         import { pythonURI, fetchOptions } from '../assets/js/api/config.js';
         let timeElapsed = 0;
@@ -142,13 +167,16 @@ permalink: /trialsPartners/
             player2.style.left = player2Pos + "px";
             timeElapsed = 0;
             document.getElementById("stopwatch").textContent = `Time: 0 seconds`;
+            // Cycle through questions
+            currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+            document.getElementById("answer").value = '';
             startMovement();
         }
         function stopStopwatch() {
             clearInterval(stopwatchInterval);
             alert(`Game over! The players collided after ${timeElapsed} seconds.`);
-            timeElapsed = 0; // Reset for the next round
-            document.getElementById("stopwatch").textContent = `Time: 0 seconds`;
+            timeElapsed = 0;
+            document.getElementById("playAgainPopup").classList.remove("hidden");
         }
         function submitAnswer() {
             // Ensure questions are loaded before allowing submission
@@ -156,8 +184,8 @@ permalink: /trialsPartners/
                 alert("Questions are still loading. Please wait.");
                 return;
             }
-            const answer = document.getElementById("answer").value.trim();
-            const correctAnswer = questions[currentQuestionIndex].answer;
+            const answer = document.getElementById("answer").value.trim().toLowerCase();
+            const correctAnswer = questions[currentQuestionIndex].answer.trim().toLowerCase();
             if (answer === correctAnswer) {
                 alert("Correct! Moving backward.");
                 if (currentPlayer === 1) {
@@ -166,7 +194,7 @@ permalink: /trialsPartners/
                     player2Pos += 30;
                 }
             } else {
-                alert("Incorrect! Keep moving forward.");
+                alert(`Incorrect! The correct answer is ${correctAnswer}. Keep moving forward.`);
             }
             // Update player positions
             player1.style.left = player1Pos + "px";
@@ -191,6 +219,13 @@ permalink: /trialsPartners/
             }, 100);
         }
         document.getElementById("submitAnswer").addEventListener("click", submitAnswer);
+        document.getElementById("yesButton").addEventListener("click", () => {
+            document.getElementById("playAgainPopup").classList.add("hidden");
+            resetGame();
+        });
+        document.getElementById("noButton").addEventListener("click", () => {
+            window.location.href = "{{site.baseurl}}/trials";
+        });
         window.addEventListener("keydown", () => {
             if (!player1Ready) {
                 player1Ready = true;
@@ -214,10 +249,10 @@ permalink: /trialsPartners/
                     // Convert to questions array
                     questions = data.map(event => ({
                         question: event.description,
-                        answer: event.year.toString()
+                        answer: event.year.toString().trim().toLowerCase()
                     }));
                     if (questions.length > 0) {
-                        questions = questions.sort(() => Math.random() - 0.5); // Randomize order
+                        questions = questions.sort(() => Math.random() - 0.5); //Randomize order
                         updateQuestion(); // Start the game once questions are loaded
                     } else {
                         document.getElementById("question").textContent = "No questions available.";
