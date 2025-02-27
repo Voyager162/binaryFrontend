@@ -16,13 +16,14 @@ permalink: /quiz
 
 <div class="quiz-container">
     <h3>Quiz Attempt History</h3> 
-    <button id="createAttempt">Create New Attempt</button> <!-- Add this line -->
+    <button id="createAttempt">Create New Attempt</button>
     <table id="attemptsTable">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Quizgrade</th>
-                <th>Attempt</th>
+                <th>Username</th>
+                <th>Quiz Grade</th>
+                <th>Attempt Date</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -33,6 +34,15 @@ permalink: /quiz
 </div>
 
  <style>
+     /* General Styling */
+        body {
+                background: linear-gradient(150deg, #0E3348, #247994, #147EA0, #0F547B
+);
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #F6F6F6;
+            } 
         .quiz-container {
             width: 80%;
             margin: 0 auto;
@@ -83,6 +93,20 @@ permalink: /quiz
 
         button:active {
             transform: scale(0.98);
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            padding: 12px;
+            text-align: center;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        thead {
+            position: sticky;
+            top: 0;
+            background-color: white;
         }
     </style>
 
@@ -227,7 +251,7 @@ function buildQuiz(questions) {
     quizContainer.innerHTML = output.join('');
 }
 
-function showResults(questions) {
+async function showResults(questions) {
     const quizContainer = document.getElementById('quiz');
     const answerContainers = quizContainer.querySelectorAll('.answers');
     let numCorrect = 0;
@@ -245,10 +269,17 @@ function showResults(questions) {
     const resultsContainer = document.getElementById('results');
     resultsContainer.innerHTML = `${numCorrect} out of ${questions.length}`;
 
+    const currentUserResponse = await fetch(`${pythonURI}/api/id`, fetchOptions);
+    if (!currentUserResponse.ok) throw new Error('Failed to fetch current user');
+    const currentUser = await currentUserResponse.json();
+    userName = currentUser.uid;
+    userID = currentUser.id;
     // Send the attempt data to the backend
     const attemptData = {
         quizgrade: numCorrect,
-        attempt: new Date().toISOString()
+        attempt: new Date().toISOString(),
+        id: userID,
+        username: userName,
     };
 
     fetch(quizGradingsApi, {
@@ -291,59 +322,88 @@ async function deleteAttempt(inputId) {
   }
 }
 
+let userName, userID; // Add these variables at the top of the script
+
+// Update the loadAttempts function to include current user info
 async function loadAttempts() {
+    // Get current user info first
+    const currentUserResponse = await fetch(`${pythonURI}/api/id`, fetchOptions);
+    if (!currentUserResponse.ok) throw new Error('Failed to fetch current user');
+    const currentUser = await currentUserResponse.json();
+    userName = currentUser.uid;
+    userID = currentUser.id;
+
     const quizGrading = await fetch(quizGradingsApi, fetchOptions)
     if (!quizGrading.ok) {console.error("Error loading attempts:", quizGrading);}
 
     const quizResults = await quizGrading.json();
     console.log(quizResults)
 
-    // Finds table body and clears existing rows, then replaces it with data
-    const tableBody = document.getElementById('attemptsTable');
-    tableBody.innerHTML = ''; // Clear existing rows
+    // Get the table and create thead and tbody if they don't exist
+    const table = document.getElementById('attemptsTable');
+    let thead = table.querySelector('thead');
+    let tbody = table.querySelector('tbody');
+
+    // Create thead if it doesn't exist
+    if (!thead) {
+        thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        const headers = ['ID', 'Username', 'Quiz Grade', 'Attempt Date', 'Actions'];
+        
+        headers.forEach(headerText => {
+            const th = document.createElement('th');
+            th.textContent = headerText;
+            headerRow.appendChild(th);
+        });
+        
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+    }
+
+    // Create tbody if it doesn't exist
+    if (!tbody) {
+        tbody = document.createElement('tbody');
+        table.appendChild(tbody);
+    }
+
+    // Clear existing rows in tbody
+    tbody.innerHTML = '';
+
+    // Add data rows
     quizResults.forEach(attempt => {
         const row = document.createElement('tr');
         const idCell = document.createElement('td')
         idCell.innerHTML = attempt.id;
+        const usernameCell = document.createElement('td')
+        usernameCell.innerHTML = attempt.username;
         const quizgradeCell = document.createElement('td')
         quizgradeCell.innerHTML = attempt.quizgrade;
         const attemptCell = document.createElement('td')
         attemptCell.innerHTML = attempt.attempt;
         const actionCell = document.createElement('td'); 
-        const deleteButton = document.createElement('button')
-        deleteButton.innerHTML = 'Delete';
-        deleteButton.addEventListener('click', () => deleteAttempt(attempt.id));
-        const editButton = document.createElement('button')
-        editButton.innerHTML = 'Edit';
-        editButton.addEventListener('click', () => editAttempt(attempt.id));
+        
+        // Only show delete/edit buttons for the current user's attempts
+        if (attempt.username === userName) {
+            const deleteButton = document.createElement('button')
+            deleteButton.innerHTML = 'Delete';
+            deleteButton.addEventListener('click', () => deleteAttempt(attempt.id));
+            const editButton = document.createElement('button')
+            editButton.innerHTML = 'Edit';
+            editButton.addEventListener('click', () => editAttempt(attempt.id));
+            actionCell.append(deleteButton);
+            actionCell.append(editButton);
+        }
+        
         row.append(idCell);
+        row.append(usernameCell);
         row.append(quizgradeCell);
         row.append(attemptCell);
         row.append(actionCell);
-        actionCell.append(deleteButton);
-        actionCell.append(editButton);
-        tableBody.append(row);
+        tbody.append(row);
     });
 }
 
-function editAttempt(id) {
-    const quizgrade = prompt("Enter new quiz grade:");
-    const attempt = prompt("Enter new attempt number:");
-    if (quizgrade && attempt) {
-        fetch(quizGradingsApi, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id, quizgrade, attempt }),
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log("Attempt updated:", data);
-            loadAttempts(); // Reload table
-        })
-        .catch((error) => console.error("Error updating attempt:", error));
-    }
-}
-
+// Update the createAttempt function to include user info
 function createAttempt() {
     const quizgrade = prompt("Enter quiz grade:");
     const attempt = prompt("Enter attempt number:");
@@ -351,7 +411,12 @@ function createAttempt() {
         fetch(quizGradingsApi, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ quizgrade, attempt }),
+            body: JSON.stringify({ 
+                quizgrade, 
+                attempt,
+                id: userID,
+                username: userName 
+            }),
         })
         .then((response) => response.json())
         .then((data) => {
@@ -359,6 +424,45 @@ function createAttempt() {
             loadAttempts(); // Reload table
         })
         .catch((error) => console.error("Error creating attempt:", error));
+    }
+}
+
+// Update the editAttempt function to include user info
+function editAttempt(id) {
+    // First verify this is the current user's attempt
+    if (!userName) {
+        alert("Please log in to edit attempts");
+        return;
+    }
+
+    const quizgrade = prompt("Enter new quiz grade:");
+    const attempt = prompt("Enter new attempt number:");
+    if (quizgrade && attempt) {
+        fetch(quizGradingsApi, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+                id,  // Keep the original ID
+                quizgrade, 
+                attempt,
+                username: userName,
+                user_id: userID  // Include the user ID
+            }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to update attempt');
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log("Attempt updated:", data);
+            loadAttempts(); // Reload table
+        })
+        .catch((error) => {
+            console.error("Error updating attempt:", error);
+            alert("Error updating attempt. Please try again.");
+        });
     }
 }
 
