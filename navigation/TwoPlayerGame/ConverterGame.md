@@ -141,7 +141,7 @@ permalink: /trialsCompetition/
             }
         });
 document.getElementById("yesButton").addEventListener("click", () => {
-            document.getElementById("playAgainPopup").classList.add("hidden");
+            document.getElementById('playAgainPopup').classList.add('hidden');
             resetGame();
         });
 document.getElementById("noButton").addEventListener("click", () => {
