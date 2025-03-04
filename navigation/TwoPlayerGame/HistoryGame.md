@@ -128,11 +128,11 @@ permalink: /trialsPartners/
     <p></p>
     <button class="regularButton"><a href="{{site.baseurl}}/trials">Click here to go back to the binary trials directory.</a></button>
     <div id="playAgainPopup" class="hidden">
-        <p>Do you want to play again?</p>
+        <h3>Do you want to play again?</h3>
         <p></p>
-        <button id="yesButton" class="regularButton">Yes</button>
+        <p>- If yes, reload the page </p>
         <p></p>
-        <button id="noButton" class="regularButton">No</button>
+        <button class="regularButton"><a href="{{site.baseurl}}/trials">Click here to go back to the binary trials directory.</a></button>
     </div>
     <script type="module">
         import { pythonURI, fetchOptions } from '../assets/js/api/config.js';
@@ -219,13 +219,6 @@ permalink: /trialsPartners/
             }, 100);
         }
         document.getElementById("submitAnswer").addEventListener("click", submitAnswer);
-        document.getElementById("yesButton").addEventListener("click", () => {
-            document.getElementById("playAgainPopup").classList.add("hidden");
-            resetGame();
-        });
-        document.getElementById("noButton").addEventListener("click", () => {
-            window.location.href = "{{site.baseurl}}/trials";
-        });
         window.addEventListener("keydown", () => {
             if (!player1Ready) {
                 player1Ready = true;
