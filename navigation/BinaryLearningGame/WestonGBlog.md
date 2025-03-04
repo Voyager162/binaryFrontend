@@ -276,6 +276,7 @@ link to the kanban board: <https://github.com/users/Voyager162/projects/3>
 <br><br>
 <image src="{{site.baseurl}}/images/binaryLearningGame/featurePicture.png" alt="Binary Game" style="width: 50%; height: 50%;"></image>
 <br><br>
+
 ## My Purpose
 
 ##### The purpose of our group code is to create a site to teach future students and peers:
@@ -560,3 +561,7 @@ link to the kanban board: <https://github.com/users/Voyager162/projects/3>
 - With the deleteScores function I handle this data by sending a request to the api, giving it the score id from the parameter of the function.
 - Then if the data produces an error, such as the score id not being an integer or some code error in the backend or frontend, the code will adapt and change.
     - Becuase the function is using a try and catch statement, an error will trigger the catch statement, which will safely report the error without crashing everything.
+
+<br><br>
+
+## MCQ review <https://github.com/Voyager162/weston_2025/issues/7>
