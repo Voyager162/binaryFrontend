@@ -13,7 +13,23 @@ permalink: /finalBlog/
 ### 5 Things/Accomplishments I did:
 
 #### Frontend and Backend Development- 
-- Developed a frontend page and an api/model in the backend storing binary/decimal conversions in the backend data table. They would both be connected through crud methods and python URI (connecting to the api). 
+- Developed a frontend page and an api/model in the backend storing binary/decimal conversions in the backend data table. 
+- They would both be connected through crud methods and python URI (connecting to the api). 
+- We use data in the backend for Binary Trials and Converter (my features) 
+
+#### Binary Trials 
+- This is a game where two player compete towards reaching the end. They take turns answer questions where they have to convert decimal to binary. 
+-If they get it right they get to go forward, but if they get it wrong they stay in place 
+- Uses a ready up feature where the two players have to ready up to enter the game
+- Helps the user learn and solidfy there understanding on binary
+
+#### Binary Converter
+
+- This is my second feature, which allows the user to test and check binary conversions
+- Can act like as a tool since users can test if they got the answer correct
+- Helps Solidify the users understanding
+
+
 
 
 
