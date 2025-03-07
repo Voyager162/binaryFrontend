@@ -125,7 +125,7 @@ class QuizCreationAPI:
             """
             # quizzes = QuizCreation.query.all()
             # json_ready = [quiz.read() for quiz in quizzes]
-            return jsonify("I'm a stupid ass quizzes")
+            return jsonify("I'm a quiz")
 
        
 ```
@@ -134,7 +134,7 @@ class QuizCreationAPI:
 
 ### Project Demo + Blog
 
-
+#### CPT Requirements
 
 
 
