@@ -127,30 +127,7 @@ class QuizCreationAPI:
             # json_ready = [quiz.read() for quiz in quizzes]
             return jsonify("I'm a stupid ass quizzes")
 
-        @token_required
-        def put(self):
-            """
-            Update an existing quiz by its ID.
-            """
-            data = request.get_json()
-            if 'id' not in data or 'question' not in data or 'answer' not in data:
-                return {'message': 'ID, question, and answer are required'}, 400
-
-            quiz = QuizCreation.query.get(data['id']).update()
-            if not quiz:
-                return {'message': 'Quiz not found'}, 404
-
-        @token_required
-        def delete(self):
-            """
-            Delete a quiz by its ID.
-            """
-            data = request.get_json()
-            if 'id' not in data:
-                return {'message': 'ID is required'}, 400
-
-            quiz = QuizCreation.query.get(data['id']).delete()
-            # if not quiz:
+       
 ```
 
 #### Collaboration
