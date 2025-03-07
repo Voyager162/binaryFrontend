@@ -38,7 +38,7 @@ In conclusion, this trimester was a time of personal growth, and though it start
   <tbody>
     <tr>
       <td><strong>5 Things Over 12 Weeks / Issues, Burndown, Presentation</strong></td>
-      <td>95%</td>
+      <td>90%</td>
       <td>4.5/5</td>
     </tr>
     <tr>
