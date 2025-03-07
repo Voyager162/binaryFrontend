@@ -62,29 +62,7 @@ class BinaryConverter(db.Model):
             "decimal": self.decimal,
         }
 
-    def update(self, data):
-        """
-        Updates the quiz with new data and commits the changes.
-        """
-        for key, value in data.items():
-            if hasattr(self, key):
-                setattr(self, key, value)
-        try:
-            db.session.commit()
-        except SQLAlchemyError as e:
-            db.session.rollback()
-            raise e
 
-    def delete(self):
-        """
-        Deletes the quiz from the database and commits the transaction.
-        """
-        try:
-            db.session.delete(self)
-            db.session.commit()
-        except SQLAlchemyError as e:
-            db.session.rollback()
-            raise e
 
 ```
 
