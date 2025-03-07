@@ -43,7 +43,7 @@ permalink: /finalBlog3/
     </tr>
     <tr>
       <td><strong>Total</strong></td>
-      <td>95.8%</td>
+      <td>89%</td>
       <td>8.9/10</td>
     </tr>
   </tbody>
