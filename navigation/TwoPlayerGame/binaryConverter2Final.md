@@ -66,6 +66,8 @@ results = [entry.read() for entry in entries]  # Converts rows into dictionaries
 ### Practice MCQ
 
 <img src="{{site.baseurl}}/navigation/images/MCQ.png" width="750px">
+<img src="{{site.baseurl}}/navigation/images/Time.png" width="750px">
+
 
 - I did end up getting a 14/67 which is a not a good grade. 
 - I didn't really know what I was doing and I was just guessing
