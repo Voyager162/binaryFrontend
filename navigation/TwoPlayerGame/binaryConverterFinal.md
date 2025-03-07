@@ -5,7 +5,7 @@ permalink: /finalBlog/
 ---
 
 
-# Reflection on Trimester 2:
+### Reflection on Trimester 2:
 
 - Over the course of this Trimester 2, I felt like I grew a lot from being in this class. At first I was struggling to keep up with assignments and putting effort but over time I overcame that and worked hard to bring my grade up and learn.
 
