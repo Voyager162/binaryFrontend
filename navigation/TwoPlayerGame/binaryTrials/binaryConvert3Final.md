@@ -54,7 +54,7 @@ In conclusion, this trimester was a time of personal growth, and though it start
     <tr>
       <td><strong>MCQ</strong></td>
       <td>90%</td>
-      <td>0.9/1</td>
+      <td>0.85/1</td>
     </tr>
     <tr>
       <td><strong>10th point</strong></td>
@@ -64,7 +64,7 @@ In conclusion, this trimester was a time of personal growth, and though it start
     <tr>
       <td><strong>Total</strong></td>
       <td>89%</td>
-      <td>8.9/10</td>
+      <td>8.85/10</td>
     </tr>
   </tbody>
 </table>
