@@ -23,7 +23,7 @@ permalink: /finalBlog/
 - Uses a ready up feature where the two players have to ready up to enter the game
 - Helps the user learn and solidfy there understanding on binary
 
-![Binary Converter](TwoPlayerGame/images/binaryConverter.png)
+![Binary Converter](../images/binaryConverter.png)
 
 #### Binary Converter
 
