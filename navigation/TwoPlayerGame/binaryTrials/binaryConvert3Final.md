@@ -12,6 +12,13 @@ permalink: /finalBlog3/
 - While I am proud of my progress, I recognize that there are areas where I can continue to improve. One of the things I want to work on is the styling and presentation of my blogs and features. Although the content itself is important, the way it's presented can make a significant difference in how others perceive it. Improving the visual appeal and clarity of my work will not only help others engage with my ideas more effectively but will also enhance my ability to convey my message clearly and professionally.
 
 
+### 10th Point
+
+- Interviewed Johan and Nandan on their project and took interest in it
+- Helped teamates under big idea 4 
+
+
+
 ### Future Plans
 
 - As I look ahead to the future, I realize that the experiences and skills I’ve gained during this trimester are stepping stones for what lies ahead. I’m excited to continue building on this progress as I move forward, especially as I prepare for college. College represents a new chapter where I’ll have more opportunities to expand my knowledge, take on challenging projects, and refine my abilities further. I believe the lessons I’ve learned during this trimester will be invaluable in helping me succeed in more advanced coursework and extracurricular activities.
