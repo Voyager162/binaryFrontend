@@ -63,7 +63,7 @@ In conclusion, this trimester was a time of personal growth, and though it start
     </tr>
     <tr>
       <td><strong>Total</strong></td>
-      <td>89%</td>
+      <td>88.5%</td>
       <td>8.85/10</td>
     </tr>
   </tbody>
