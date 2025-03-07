@@ -85,6 +85,74 @@ class BinaryConverter(db.Model):
 - Developed an api for a quiz that stores questions and the answers
 - Saves the users answers, which questions they answered right or wrong along with what the right answer is
 
+```python
+class QuizCreationAPI:
+    """
+    Define API endpoints for QuizCreation model.
+    """
+    class _CRUD(Resource):
+        @token_required
+        def post(self):
+            """
+            Create a new quiz.
+            """
+            # Get data from request
+            data = request.get_json()
+
+            # Validate required fields
+            if not data:
+                return {'message': 'No input data provided'}, 400
+            if 'question' not in data or 'answer' not in data or 'quiz_id' not in data:
+                return {'message': 'Question, answer, and quiz_id are required'}, 400
+
+            try:
+                # Create new quiz
+                quiz = QuizCreation(
+                    question=data['question'],
+                    answer=data['answer'],
+                    quiz_id=data['quiz_id']
+                )
+                quiz.create()  # Using the create method defined in your model
+                return jsonify({'message': 'Quiz created', 'quiz': quiz.read()}), 201
+
+            except Exception as e:
+                return {'message': f'Error creating quiz: {str(e)}'}, 500
+
+        @token_required
+        def get(self):
+            """
+            Retrieve all quizzes.
+            """
+            # quizzes = QuizCreation.query.all()
+            # json_ready = [quiz.read() for quiz in quizzes]
+            return jsonify("I'm a stupid ass quizzes")
+
+        @token_required
+        def put(self):
+            """
+            Update an existing quiz by its ID.
+            """
+            data = request.get_json()
+            if 'id' not in data or 'question' not in data or 'answer' not in data:
+                return {'message': 'ID, question, and answer are required'}, 400
+
+            quiz = QuizCreation.query.get(data['id']).update()
+            if not quiz:
+                return {'message': 'Quiz not found'}, 404
+
+        @token_required
+        def delete(self):
+            """
+            Delete a quiz by its ID.
+            """
+            data = request.get_json()
+            if 'id' not in data:
+                return {'message': 'ID is required'}, 400
+
+            quiz = QuizCreation.query.get(data['id']).delete()
+            # if not quiz:
+```
+
 #### Collaboration
 
 ### Project Demo + Blog
