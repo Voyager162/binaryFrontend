@@ -141,6 +141,8 @@ function convertToBinary(decimalNumber) {
 - Ask Questions on the topics to teamates
 - Take Practice Tests
 
+<a href="http://127.0.0.1:4887/binaryFrontend/corrections/">CORRECTIONS</a>
+
 
 #### Feedback from Night @ Museum:
 
