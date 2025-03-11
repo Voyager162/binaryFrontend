@@ -63,6 +63,25 @@ results = [entry.read() for entry in entries]  # Converts rows into dictionaries
 
 ```
 
+### PPR Requirements
+
+#### What is PPR?
+
+- A personal project reference refers to a specific project that a student has worked on, typically as part of their Create Performance Task. This reference is used to explain programming concepts, algorithms, and abstractions in relation to a project the student has personally developed.
+
+- Students have to write a program, a video demonstration of the code (1 minute max), and a written response explaining their code. 
+
+- Written Part is 4 questions that students have to answer after the MCQ for 1 hour
+
+- Students often need to refer to a personal project to illustrate their understanding of computing principles. This could be a program, app, or game they coded during the course.
+
+#### Requirements for the PPR
+
+- Submit 2 sections
+- Must demonstrate a procedure: 1 with a parameter and a list with its usage 
+- Must include sequencing, selection, and iteration 
+- CPT Requirements are used in the PPR
+
 ### Practice MCQ
 
 <img src="{{site.baseurl}}/navigation/images/MCQ.png" width="750px">
