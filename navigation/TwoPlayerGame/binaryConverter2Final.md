@@ -82,6 +82,51 @@ results = [entry.read() for entry in entries]  # Converts rows into dictionaries
 - Must include sequencing, selection, and iteration 
 - CPT Requirements are used in the PPR
 
+
+
+#### How my feature is related to PPR:
+
+#### Parameters
+
+```python
+
+function convertToBinary(decimalNumber) {
+    // Check if decimalNumber is valid
+    if (isNaN(decimalNumber) || decimalNumber < 0) {
+        return "Please enter a valid number!";
+    }
+    return decimalNumber.toString(2);
+}
+
+```
+
+- You could pass the decimal number directly into the function instead of reading it from the DOM, which would make the function more flexible and reusable.
+
+- The function is responsible for converting the decimal number (from input) to binary, and the output (binary value) is displayed on the webpage. This procedure directly addresses 1+ parameters affecting the functionality.
+
+
+#### List and Data Storage
+
+```python
+
+let conversionHistory = [];
+
+function convertToBinary(decimalNumber) {
+    if (isNaN(decimalNumber) || decimalNumber < 0) {
+        return "Please enter a valid number!";
+    }
+    const binary = decimalNumber.toString(2);
+    conversionHistory.push({decimal: decimalNumber, binary: binary});
+    return binary;
+}
+
+```
+
+- The game could use a list (array) to store previous binary conversions, user scores, or even difficulty levels.
+- The stored data (conversion history) could be used to show the user their past inputs and conversions, or you could display a list of their scores/challenges completed.
+
+
+
 ### Practice MCQ
 
 <img src="{{site.baseurl}}/navigation/images/MCQ.png" width="750px">
