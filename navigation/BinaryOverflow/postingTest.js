@@ -9,6 +9,7 @@ export function buildPostBox() {
     // Creates the title, as an input element one liner
     const titleInput = document.createElement('input')
     titleInput.type = 'text'
+    titleInput.style.width = '100%'
     titleInput.placeholder = 'Title'
     titleInput.classList.add("titleInput")
     titleInput.id = "titleInput"
