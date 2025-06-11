@@ -182,7 +182,7 @@ function submitAnswer() {
         document.getElementById("playAgainPopup").classList.remove("hidden");
         return;
     }
-    currentQuestionIndex = Math.floor(Math.random() * questions.length); // Randomize questions
+    currentQuestionIndex = Math.floor(Math.random() * questions.length); 
     document.getElementById("answer").value = '';
     currentPlayer = currentPlayer === 1 ? 2 : 1;
     updateQuestion();
